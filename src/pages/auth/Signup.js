@@ -164,7 +164,7 @@ function Signup(props) {
                   <div className="mb-5">
                     <button
                       type="button"
-                      class="w-full text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
+                      class="w-full text-white bg-primary hover:bg-secondary-blue focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
                     >
                       Criar Conta
                     </button>
@@ -174,7 +174,7 @@ function Signup(props) {
                   <div className="mb-5">
                     <button
                       type="button"
-                      class="w-full text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
+                      class="w-full text-white bg-primary hover:bg-secondary-blue focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
                     >
                       Criar Conta
                     </button>

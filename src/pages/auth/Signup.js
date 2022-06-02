@@ -41,6 +41,7 @@ function Signup(props) {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -61,11 +62,21 @@ function Signup(props) {
 
       //navigate("/login", {replace: true}); // TODO: navegar para termos
     } catch (err) {
+      // Se ha response, a API retornou uma mensagem.
       if (err.response) {
-        console.error(err.response);
+        if (err.response.data.errors?.msg === "USER_ALREADY_EXISTS") {
+          setError(
+            "email",
+            {
+              type: "custom",
+              message: "Este email já está cadastrado",
+            },
+            { shouldFocus: true }
+          );
+        }
       }
       // TODO: mostrar popup de erro
-      console.error(err);
+      //console.error(err);
     }
   }
 

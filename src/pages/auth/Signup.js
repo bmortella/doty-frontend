@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/authContext";
 import api from "../../apis/api";
 
 import { Tab } from "@headlessui/react";
@@ -13,6 +14,7 @@ function classNames(...classes) {
 }
 
 function Signup(props) {
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
   setLocale({
@@ -42,20 +44,27 @@ function Signup(props) {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [termsCheckbox, setTermsCheckbox] = useState(false);
 
   async function onSubmit(data) {
-    console.log(data);
     try {
       delete data.confirmPassword;
+      data.role = selectedIndex === 0 ? "guardian" : "adopter";
+
       const response = await api.post("/signup", data);
-      console.log(response);
-      //navigate("/login");
+      authContext.setLoggedInUser({ ...response.data });
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify({ ...response.data })
+      );
+
+      //navigate("/login", {replace: true}); // TODO: navegar para termos
     } catch (err) {
       if (err.response) {
         console.error(err.response);
       }
-
+      // TODO: mostrar popup de erro
       console.error(err);
     }
   }
@@ -75,7 +84,7 @@ function Signup(props) {
       </div>
       <div className="text-primary py-8 px-4 md:flex md:justify-center lg:w-full">
         <div className="md:w-1/2 lg:w-3/5 2xl:w-2/5 bg-white rounded-xl shadow py-8 px-10">
-          <Tab.Group>
+          <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
             <Tab.List className="flex justify-around">
               <Tab
                 className={({ selected }) =>

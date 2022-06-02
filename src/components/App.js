@@ -19,4 +19,6 @@ function App() {
   );
 }
 
+// DUVIDA: COMO FAZER PARA IR PARA TAB CERTA NO SIGNUP DEPENDENDO DA ORIGEM -> usar provider
+
 export default App;

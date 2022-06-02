@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../apis/api";
 
@@ -47,7 +47,9 @@ function Signup(props) {
   async function onSubmit(data) {
     console.log(data);
     try {
-      //const response = await api.post("/signup", state);
+      delete data.confirmPassword;
+      const response = await api.post("/signup", data);
+      console.log(response);
       //navigate("/login");
     } catch (err) {
       if (err.response) {

@@ -29,7 +29,12 @@ function Signup(props) {
     .object({
       name: yup.string().required().min(2).max(24),
       email: yup.string().required().email("Digite um email válido"),
-      phone: yup.string().required().min(10).max(11).matches("[0-9]+"),
+      phone: yup
+        .string()
+        .required()
+        .min(10)
+        .max(11)
+        .matches("[0-9]+", "Deve conter apenas números"),
       password: yup.string().required().min(8),
       confirmPassword: yup
         .string()

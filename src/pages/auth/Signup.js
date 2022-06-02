@@ -220,7 +220,7 @@ function Signup(props) {
                   <button
                     type="submit"
                     form="signup"
-                    className="w-full text-white bg-primary hover:bg-secondary-blue disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
+                    className="w-full text-white bg-primary disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
                     disabled={!termsCheckbox}
                   >
                     Criar Conta

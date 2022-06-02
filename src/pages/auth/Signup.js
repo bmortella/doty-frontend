@@ -1,41 +1,57 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../apis/api";
 
 import { Tab } from "@headlessui/react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { setLocale } from "yup";
+import * as yup from "yup";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Signup(props) {
-  const [state, setState] = useState({ name: "", password: "", email: "" });
-  const [errors, setErrors] = useState({
-    name: null,
-    email: null,
-    password: null,
-  });
-
   const navigate = useNavigate();
 
-  function handleChange(event) {
-    setState({
-      ...state,
-      [event.currentTarget.name]: event.currentTarget.value,
-    });
-  }
+  setLocale({
+    mixed: { required: "Campo obrigatório" },
+    string: {
+      min: "Deve conter no mínimo ${min} caracteres",
+      max: "Deve conter no máximo ${max} caracteres",
+    },
+  });
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  const schema = yup
+    .object({
+      name: yup.string().required(),
+      email: yup.string().required().email("Digite um email válido"),
+      phone: yup.string().required().min(10).max(11).matches("[0-9]+"),
+      password: yup.string().required().min(8),
+      confirmPassword: yup
+        .string()
+        .required()
+        .oneOf([yup.ref("password")], "As senhas não coindicem"),
+    })
+    .required();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const [termsCheckbox, setTermsCheckbox] = useState(false);
+
+  async function onSubmit(data) {
+    console.log(data);
     try {
-      const response = await api.post("/signup", state);
-      setErrors({ name: "", password: "", email: "" });
-      navigate("/login");
+      //const response = await api.post("/signup", state);
+      //navigate("/login");
     } catch (err) {
       if (err.response) {
         console.error(err.response);
-        return setErrors({ ...err.response.data.errors });
       }
 
       console.error(err);
@@ -86,112 +102,142 @@ function Signup(props) {
               </Tab>
             </Tab.List>
             <Tab.Panels>
-              <form className="mt-6">
-                <div class="mb-6">
-                  <label for="name" class="block mb-2 text-sm">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="mt-6"
+                id="signup"
+              >
+                <div className="mb-6">
+                  <label for="name" className="block mb-2 text-sm">
                     Nome
                   </label>
                   <input
                     type="text"
-                    name="name"
                     id="name"
-                    class="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                    required
+                    className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+                    maxLength={32}
+                    {...register("name")}
                   />
+                  {errors.name?.message && (
+                    <p className="mt-2 text-sm text-error">
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
-                <div class="mb-6">
-                  <label for="email" class="block mb-2 text-sm">
+                <div className="mb-6">
+                  <label for="email" className="block mb-2 text-sm">
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
-                    class="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                    required
+                    className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+                    {...register("email")}
                   />
+                  {errors.email?.message && (
+                    <p className="mt-2 text-sm text-error">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
-                <div class="mb-6">
-                  <label for="phone" class="block mb-2 text-sm">
+                <div className="mb-6">
+                  <label for="phone" className="block mb-2 text-sm">
                     Telefone
                   </label>
                   <input
-                    type="tel"
+                    type="text"
                     name="phone"
                     id="phone"
-                    class="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                    required
+                    className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+                    maxLength={11}
+                    onKeyPress={(event) => {
+                      if (!/[0-9]/.test(event.key)) {
+                        event.preventDefault();
+                      }
+                    }}
+                    {...register("phone")}
                   />
+                  {errors.phone?.message && (
+                    <p className="mt-2 text-sm text-error">
+                      {errors.phone.message}
+                    </p>
+                  )}
                 </div>
-                <div class="mb-6">
-                  <label for="password" class="block mb-2 text-sm">
+                <div className="mb-6">
+                  <label for="password" className="block mb-2 text-sm">
                     Senha
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     id="password"
-                    class="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                    required
+                    className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+                    {...register("password")}
                   />
+                  {errors.password?.message && (
+                    <p className="mt-2 text-sm text-error">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
-                <div class="mb-6">
-                  <label for="repeat-password" class="block mb-2 text-sm">
+                <div className="mb-6">
+                  <label for="confirmPassword" className="block mb-2 text-sm">
                     Confirmar Senha
                   </label>
                   <input
-                    type="text"
-                    name="repeat-password"
-                    id="repeat-password"
-                    class="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                    required
+                    type="password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+                    {...register("confirmPassword")}
                   />
+                  {errors.confirmPassword?.message && (
+                    <p className="mt-2 text-sm text-error">
+                      {errors.confirmPassword.message}
+                    </p>
+                  )}
                 </div>
-                <div class="flex items-center mb-6">
+                <div className="flex items-center mb-6">
                   <input
                     id="terms-checkbox"
                     type="checkbox"
                     value=""
-                    class="w-6 h-6 text-secondary-blue bg-gray-100 rounded border-gray-300 focus:ring-secondary-blue focus:ring-2"
+                    className="w-6 h-6 text-secondary-blue bg-gray-100 rounded border-gray-300 focus:ring-secondary-blue focus:ring-2"
+                    defaultChecked={termsCheckbox}
+                    onChange={() => setTermsCheckbox(!termsCheckbox)}
                   />
-                  <label for="terms-checkbox" class="ml-2 text-xs font-medium">
+                  <label
+                    for="terms-checkbox"
+                    className="ml-2 text-xs font-medium"
+                  >
                     Eu concordo com os{" "}
-                    <a href="#" class="text-hyperlink-blue hover:underline">
+                    <a href="#" className="text-hyperlink-blue hover:underline">
                       termos de uso
                     </a>
                   </label>
                 </div>
-                <Tab.Panel>
-                  <div className="mb-5">
-                    <button
-                      type="button"
-                      class="w-full text-white bg-primary hover:bg-secondary-blue focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
-                    >
-                      Criar Conta
-                    </button>
-                  </div>
-                </Tab.Panel>
-                <Tab.Panel>
-                  <div className="mb-5">
-                    <button
-                      type="button"
-                      class="w-full text-white bg-primary hover:bg-secondary-blue focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
-                    >
-                      Criar Conta
-                    </button>
-                  </div>
-                </Tab.Panel>
-                <div className="text-center">
-                  <span>
-                    Já tem uma conta?{" "}
-                    <Link
-                      to="/login"
-                      className="text-hyperlink-blue hover:underline"
-                    >
-                      Entrar
-                    </Link>
-                  </span>
+                <div className="mb-5">
+                  <button
+                    type="submit"
+                    form="signup"
+                    className="w-full text-white bg-primary hover:bg-secondary-blue disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mr-2 mb-2 focus:outline-none"
+                    disabled={!termsCheckbox}
+                  >
+                    Criar Conta
+                  </button>
                 </div>
               </form>
+              <div className="text-center">
+                <span>
+                  Já tem uma conta?{" "}
+                  <Link
+                    to="/login"
+                    className="text-hyperlink-blue hover:underline"
+                  >
+                    Entrar
+                  </Link>
+                </span>
+              </div>
             </Tab.Panels>
           </Tab.Group>
         </div>

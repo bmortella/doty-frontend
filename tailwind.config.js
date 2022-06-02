@@ -15,6 +15,7 @@ module.exports = {
         "secondary-orange": "#F69D62",
         "hyperlink-blue": "#1973E8",
         neutral: "#75758B",
+        error: "#EB5757",
       },
     },
   },

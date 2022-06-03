@@ -65,7 +65,7 @@ function Signup(props) {
         JSON.stringify({ ...response.data })
       );
 
-      //navigate("/login", {replace: true}); // TODO: navegar para termos
+      navigate("/welcome", { replace: true }); // TODO: navegar para termos
     } catch (err) {
       // Se ha response, a API retornou uma mensagem.
       if (err.response) {

@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
+import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 
 import { AuthContextComponent } from "../contexts/authContext";
@@ -18,6 +19,10 @@ function App() {
         <Route
           path="/welcome"
           element={<ProtectedRoute component={Welcome} />}
+        />
+        <Route
+          path="/guardian/welcome/registerPets"
+          element={<WelcomeRegisterPet />}
         />
       </Routes>
     </AuthContextComponent>

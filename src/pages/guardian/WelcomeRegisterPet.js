@@ -10,6 +10,8 @@ import * as yup from "yup";
 
 import { Dialog, Transition } from "@headlessui/react";
 
+import api from "../../apis/api";
+
 function WelcomeRegisterPet() {
   const [registeredPets, setRegisteredPets] = useState([
     { name: "Pipoca", sex: "Masculino", size: "Pequeno" },
@@ -40,16 +42,32 @@ function WelcomeRegisterPet() {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  async function onSubmit(data) {
+    try {
+      const response = await api.post("/pets", data);
+      setRegisteredPets([...registeredPets, response.data]);
+      reset();
+      if (isOpen) closeDialog();
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.errors?.msg === "PET_ALREADY_EXISTS") {
+          setError(
+            "name",
+            {
+              type: "custom",
+              message: "Este cachorro já está cadastrado",
+            },
+            { shouldFocus: true }
+          );
+        }
+      }
+    }
+  }
+
   // Controle dialog
   let [isOpen, setIsOpen] = useState(false);
   function closeDialog() {
     setIsOpen(false);
-  }
-
-  async function onSubmit(data) {
-    setRegisteredPets([...registeredPets, data]);
-    reset();
-    if (isOpen) closeDialog();
   }
 
   return (
@@ -71,6 +89,7 @@ function WelcomeRegisterPet() {
           Adicionar Cachorro
         </button>
       </div>
+
       <div className="relative overflow-x-auto shadow-md rounded-lg mt-4 border border-gray-200">
         <table className="w-full text-sm text-left text-neutral">
           <thead className="text-xs uppercase bg-gray-50">
@@ -115,6 +134,7 @@ function WelcomeRegisterPet() {
           </button>
         </div>
       </div>
+
       <div className="flex flex-col w-full mt-8 px-4">
         <Link to="/login" className="btn">
           Finalizar Cadastro
@@ -169,7 +189,7 @@ function WelcomeRegisterPet() {
                         type="text"
                         id="name"
                         className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                        maxLength={32}
+                        maxLength={12}
                         {...register("name")}
                       />
                       {errors.name?.message && (
@@ -179,7 +199,7 @@ function WelcomeRegisterPet() {
                       )}
                     </div>
                     <div className="mb-6">
-                      <label for="sex" class="block mb-2 text-sm">
+                      <label for="sex" className="block mb-2 text-sm">
                         Sexo
                       </label>
                       <select
@@ -199,7 +219,7 @@ function WelcomeRegisterPet() {
                       )}
                     </div>
                     <div className="mb-6">
-                      <label for="size" class="block mb-2 text-sm">
+                      <label for="size" className="block mb-2 text-sm">
                         Porte
                       </label>
                       <select
@@ -220,11 +240,11 @@ function WelcomeRegisterPet() {
                       )}
                     </div>
                     <div className="mb-6">
-                      <label for="size" class="block mb-2 text-sm">
+                      <label for="size" className="block mb-2 text-sm">
                         Idade
                       </label>
                       <select
-                        id="size"
+                        id="age"
                         className="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
                         {...register("age")}
                         defaultValue=""

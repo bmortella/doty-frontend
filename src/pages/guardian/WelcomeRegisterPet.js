@@ -15,21 +15,20 @@ function WelcomeRegisterPet() {
     { name: "Pipoca", sex: "Masculino", size: "Pequeno" },
   ]);
 
+  setLocale({
+    mixed: { required: "Campo obrigatório" },
+    string: {
+      min: "Deve conter no mínimo ${min} caracteres",
+      max: "Deve conter no máximo ${max} caracteres",
+    },
+  });
+
   const schema = yup
     .object({
-      name: yup.string().required().min(2).max(24),
-      email: yup.string().required().email("Digite um email válido"),
-      phone: yup
-        .string()
-        .required()
-        .min(10)
-        .max(11)
-        .matches("[0-9]+", "Deve conter apenas números"),
-      password: yup.string().required().min(8),
-      confirmPassword: yup
-        .string()
-        .required()
-        .oneOf([yup.ref("password")], "As senhas não coindicem"),
+      name: yup.string().required().min(2).max(12),
+      sex: yup.string().required(),
+      size: yup.string().required(),
+      age: yup.string().required(),
     })
     .required();
 
@@ -37,13 +36,20 @@ function WelcomeRegisterPet() {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
   // Controle dialog
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
   function closeDialog() {
     setIsOpen(false);
+  }
+
+  async function onSubmit(data) {
+    setRegisteredPets([...registeredPets, data]);
+    reset();
+    if (isOpen) closeDialog();
   }
 
   return (
@@ -110,16 +116,10 @@ function WelcomeRegisterPet() {
         </div>
       </div>
       <div className="flex flex-col w-full mt-8 px-4">
-        <Link
-          to="/login"
-          className="block text-center bg-primary text-white disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
-        >
+        <Link to="/login" className="btn">
           Finalizar Cadastro
         </Link>
-        <Link
-          to="/login"
-          className="block text-center bg-white disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
-        >
+        <Link to="/login" className="btn text-primary bg-white">
           Pular
         </Link>
       </div>
@@ -156,7 +156,11 @@ function WelcomeRegisterPet() {
                   >
                     Cadastro do Animal
                   </Dialog.Title>
-                  <form className="mt-6">
+                  <form
+                    className="mt-6"
+                    id="dialogRegister"
+                    onSubmit={handleSubmit(onSubmit)}
+                  >
                     <div className="mb-6">
                       <label for="name" className="block mb-2 text-sm">
                         Nome
@@ -184,8 +188,8 @@ function WelcomeRegisterPet() {
                         {...register("sex")}
                       >
                         <option selected></option>
-                        <option value="male">Macho</option>
-                        <option value="female">Fêmea</option>
+                        <option value="Macho">Macho</option>
+                        <option value="Fêmea">Fêmea</option>
                       </select>
                       {errors.sex?.message && (
                         <p className="mt-2 text-sm text-error">
@@ -203,9 +207,9 @@ function WelcomeRegisterPet() {
                         {...register("size")}
                       >
                         <option selected></option>
-                        <option value="small">Pequeno</option>
-                        <option value="medium">Médio</option>
-                        <option value="big">Grande</option>
+                        <option value="Pequeno">Pequeno</option>
+                        <option value="Médio">Médio</option>
+                        <option value="Grande">Grande</option>
                       </select>
                       {errors.size?.message && (
                         <p className="mt-2 text-sm text-error">
@@ -235,7 +239,11 @@ function WelcomeRegisterPet() {
                     </div>
 
                     <div className="mt-10">
-                      <button type="button" className="btn">
+                      <button
+                        type="submit"
+                        form="dialogRegister"
+                        className="btn"
+                      >
                         Cadastrar Animal
                       </button>
                       <button

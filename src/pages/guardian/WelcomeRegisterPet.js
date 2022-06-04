@@ -1,8 +1,51 @@
 import { PlusCircle, Trash2, ArrowLeft, ArrowRight } from "react-feather";
 
+import { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { setLocale } from "yup";
+import * as yup from "yup";
+
+import { Dialog, Transition } from "@headlessui/react";
+
 function WelcomeRegisterPet() {
+  const [registeredPets, setRegisteredPets] = useState([
+    { name: "Pipoca", sex: "Masculino", size: "Pequeno" },
+  ]);
+
+  const schema = yup
+    .object({
+      name: yup.string().required().min(2).max(24),
+      email: yup.string().required().email("Digite um email válido"),
+      phone: yup
+        .string()
+        .required()
+        .min(10)
+        .max(11)
+        .matches("[0-9]+", "Deve conter apenas números"),
+      password: yup.string().required().min(8),
+      confirmPassword: yup
+        .string()
+        .required()
+        .oneOf([yup.ref("password")], "As senhas não coindicem"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  // Controle dialog
+  let [isOpen, setIsOpen] = useState(true);
+  function closeDialog() {
+    setIsOpen(false);
+  }
+
   return (
     <div>
       <div className="px-4">
@@ -15,65 +58,44 @@ function WelcomeRegisterPet() {
         </div>
         <button
           type="button"
-          class="w-full text-primary bg-white border border-primary focus:ring-4 focus:outline-none focus:secondary-blue rounded-lg px-5 py-2.5 inline-flex justify-center items-center mr-2 mb-2"
+          className="w-full text-primary bg-white border border-primary focus:ring-4 focus:outline-none focus:secondary-blue rounded-lg px-5 py-2.5 inline-flex justify-center items-center mr-2 mb-2"
+          onClick={() => setIsOpen(true)}
         >
           <PlusCircle className="mr-2" size={20} />
           Adicionar Cachorro
         </button>
       </div>
-      <div class="relative overflow-x-auto shadow-md rounded-lg mt-4 border border-gray-200">
-        <table class="w-full text-sm text-left text-neutral">
-          <thead class="text-xs uppercase bg-gray-50">
+      <div className="relative overflow-x-auto shadow-md rounded-lg mt-4 border border-gray-200">
+        <table className="w-full text-sm text-left text-neutral">
+          <thead className="text-xs uppercase bg-gray-50">
             <tr>
-              <th scope="col" class="px-6 py-3 ">
+              <th scope="col" className="px-6 py-3 ">
                 Nome
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Sexo
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Porte
               </th>
-              <th scope="col" class="px-4 py-3"></th>
+              <th scope="col" className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody>
-            <tr class="bg-white border-b odd:bg-white even:bg-gray-50">
-              <th scope="row" class="px-6 py-4 text-primary">
-                Pipoca
-              </th>
-              <td class="px-6 py-4">Macho</td>
-              <td class="px-6 py-4">Pequeno</td>
-              <td class="px-4 py-4">
-                <button>
-                  <Trash2 className="text-gray-600" />
-                </button>
-              </td>
-            </tr>
-            <tr class="bg-white border-b odd:bg-white even:bg-gray-50">
-              <th scope="row" class="px-6 py-4 text-primary">
-                Torresmo
-              </th>
-              <td class="px-6 py-4">Macho</td>
-              <td class="px-6 py-4">Grande</td>
-              <td class="px-4 py-4">
-                <button>
-                  <Trash2 className="text-gray-600" />
-                </button>
-              </td>
-            </tr>
-            <tr class="bg-white border-b odd:bg-white even:bg-gray-50">
-              <th scope="row" class="px-6 py-4 text-primary">
-                Enrico
-              </th>
-              <td class="px-6 py-4">Macho</td>
-              <td class="px-6 py-4">Pequeno</td>
-              <td class="px-4 py-4">
-                <button>
-                  <Trash2 className="text-gray-600" />
-                </button>
-              </td>
-            </tr>
+            {registeredPets.map((pet) => (
+              <tr className="bg-white border-b odd:bg-white even:bg-gray-50">
+                <th scope="row" className="px-6 py-4 text-primary">
+                  {pet.name}
+                </th>
+                <td className="px-6 py-4">{pet.sex}</td>
+                <td className="px-6 py-4">{pet.size}</td>
+                <td className="px-4 py-4">
+                  <button type="button">
+                    <Trash2 className="text-gray-600" />
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <div className="flex flex-nowrap justify-between mx-4">
@@ -90,17 +112,147 @@ function WelcomeRegisterPet() {
       <div className="flex flex-col w-full mt-8 px-4">
         <Link
           to="/login"
-          className="block lg:w-80 text-center bg-primary text-white disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
+          className="block text-center bg-primary text-white disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
         >
           Finalizar Cadastro
         </Link>
         <Link
           to="/login"
-          className="block lg:w-80 text-center bg-white disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
+          className="block text-center bg-white disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
         >
           Pular
         </Link>
       </div>
+
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeDialog}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 pb-4 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-xl leading-6 text-secondary-blue font-semibold"
+                  >
+                    Cadastro do Animal
+                  </Dialog.Title>
+                  <form className="mt-6">
+                    <div className="mb-6">
+                      <label for="name" className="block mb-2 text-sm">
+                        Nome
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+                        maxLength={32}
+                        {...register("name")}
+                      />
+                      {errors.name?.message && (
+                        <p className="mt-2 text-sm text-error">
+                          {errors.name.message}
+                        </p>
+                      )}
+                    </div>
+                    <div className="mb-6">
+                      <label for="sex" class="block mb-2 text-sm">
+                        Sexo
+                      </label>
+                      <select
+                        id="sex"
+                        class="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+                        {...register("sex")}
+                      >
+                        <option selected></option>
+                        <option value="male">Macho</option>
+                        <option value="female">Fêmea</option>
+                      </select>
+                      {errors.sex?.message && (
+                        <p className="mt-2 text-sm text-error">
+                          {errors.sex.message}
+                        </p>
+                      )}
+                    </div>
+                    <div className="mb-6">
+                      <label for="size" class="block mb-2 text-sm">
+                        Porte
+                      </label>
+                      <select
+                        id="size"
+                        class="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+                        {...register("size")}
+                      >
+                        <option selected></option>
+                        <option value="small">Pequeno</option>
+                        <option value="medium">Médio</option>
+                        <option value="big">Grande</option>
+                      </select>
+                      {errors.size?.message && (
+                        <p className="mt-2 text-sm text-error">
+                          {errors.size.message}
+                        </p>
+                      )}
+                    </div>
+                    <div className="mb-6">
+                      <label for="size" class="block mb-2 text-sm">
+                        Idade
+                      </label>
+                      <select
+                        id="size"
+                        class="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+                        {...register("age")}
+                      >
+                        <option selected></option>
+                        <option value="3 meses">3 meses</option>
+                        <option value="6 meses">6 meses</option>
+                        <option value="1 ano">1 ano</option>
+                      </select>
+                      {errors.age?.message && (
+                        <p className="mt-2 text-sm text-error">
+                          {errors.age.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-10">
+                      <button type="button" className="btn">
+                        Cadastrar Animal
+                      </button>
+                      <button
+                        type="button"
+                        className="btn text-primary bg-white"
+                        onClick={() => closeDialog()}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
+import GuardianPage from "../pages/GuardianPage";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -19,6 +20,7 @@ function App() {
           path="/welcome"
           element={<ProtectedRoute component={Welcome} />}
         />
+        <Route path="/guardian" element={<GuardianPage />} />
       </Routes>
     </AuthContextComponent>
   );

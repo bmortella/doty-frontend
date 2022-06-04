@@ -184,10 +184,11 @@ function WelcomeRegisterPet() {
                       </label>
                       <select
                         id="sex"
-                        class="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+                        className="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
                         {...register("sex")}
+                        defaultValue=""
                       >
-                        <option selected></option>
+                        <option value=""></option>
                         <option value="Macho">Macho</option>
                         <option value="Fêmea">Fêmea</option>
                       </select>
@@ -203,10 +204,11 @@ function WelcomeRegisterPet() {
                       </label>
                       <select
                         id="size"
-                        class="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+                        className="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
                         {...register("size")}
+                        defaultValue=""
                       >
-                        <option selected></option>
+                        <option value=""></option>
                         <option value="Pequeno">Pequeno</option>
                         <option value="Médio">Médio</option>
                         <option value="Grande">Grande</option>
@@ -223,10 +225,11 @@ function WelcomeRegisterPet() {
                       </label>
                       <select
                         id="size"
-                        class="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
+                        className="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
                         {...register("age")}
+                        defaultValue=""
                       >
-                        <option selected></option>
+                        <option value=""></option>
                         <option value="3 meses">3 meses</option>
                         <option value="6 meses">6 meses</option>
                         <option value="1 ano">1 ano</option>

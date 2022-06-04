@@ -13,9 +13,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import api from "../../apis/api";
 
 function WelcomeRegisterPet() {
-  const [registeredPets, setRegisteredPets] = useState([
-    { name: "Pipoca", sex: "Masculino", size: "Pequeno" },
-  ]);
+  const [registeredPets, setRegisteredPets] = useState([]);
 
   setLocale({
     mixed: { required: "Campo obrigatório" },
@@ -64,6 +62,15 @@ function WelcomeRegisterPet() {
     }
   }
 
+  async function deletePet(pet) {
+    try {
+      await api.delete(`/pets/${pet._id}`);
+      setRegisteredPets(registeredPets.filter((item) => item._id !== pet._id));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   // Controle dialog
   let [isOpen, setIsOpen] = useState(false);
   function closeDialog() {
@@ -108,14 +115,17 @@ function WelcomeRegisterPet() {
           </thead>
           <tbody>
             {registeredPets.map((pet) => (
-              <tr className="bg-white border-b odd:bg-white even:bg-gray-50">
+              <tr
+                className="bg-white border-b odd:bg-white even:bg-gray-50"
+                key={pet._id}
+              >
                 <th scope="row" className="px-6 py-4 text-primary">
                   {pet.name}
                 </th>
                 <td className="px-6 py-4">{pet.sex}</td>
                 <td className="px-6 py-4">{pet.size}</td>
                 <td className="px-4 py-4">
-                  <button type="button">
+                  <button type="button" onClick={() => deletePet(pet)}>
                     <Trash2 className="text-gray-600" />
                   </button>
                 </td>
@@ -182,7 +192,7 @@ function WelcomeRegisterPet() {
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <div className="mb-6">
-                      <label for="name" className="block mb-2 text-sm">
+                      <label htmlFor="name" className="block mb-2 text-sm">
                         Nome
                       </label>
                       <input
@@ -199,7 +209,7 @@ function WelcomeRegisterPet() {
                       )}
                     </div>
                     <div className="mb-6">
-                      <label for="sex" className="block mb-2 text-sm">
+                      <label htmlFor="sex" className="block mb-2 text-sm">
                         Sexo
                       </label>
                       <select
@@ -219,7 +229,7 @@ function WelcomeRegisterPet() {
                       )}
                     </div>
                     <div className="mb-6">
-                      <label for="size" className="block mb-2 text-sm">
+                      <label htmlFor="size" className="block mb-2 text-sm">
                         Porte
                       </label>
                       <select
@@ -240,7 +250,7 @@ function WelcomeRegisterPet() {
                       )}
                     </div>
                     <div className="mb-6">
-                      <label for="size" className="block mb-2 text-sm">
+                      <label htmlFor="size" className="block mb-2 text-sm">
                         Idade
                       </label>
                       <select

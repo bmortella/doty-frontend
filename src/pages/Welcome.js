@@ -25,7 +25,10 @@ function Welcome() {
       </div>
       <div className="text-primary text-center md:flex md:justify-center lg:w-full">
         <div className="py-8 pt-2 px-10 2xl:w-2/3 md:flex md:flex-col md:items-center">
-          <img src={success} className="mx-auto xl:w-8/12 2xl:6/12"></img>
+          <img
+            src={success}
+            className="mb-10 mt-10 mx-auto xl:w-8/12 2xl:6/12"
+          ></img>
           <h2 className="font-semibold text-2xl text-secondary-blue">
             Oba! Ficamos muito felizes com o seu interesse
             {authContext.loggedInUser.user.role === "guardian"

@@ -13,14 +13,11 @@ function App() {
   return (
     <AuthContextComponent>
       <Routes>
-        <Route path="/" element={<ProtectedRoute component={Home} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/welcome"
-          element={<ProtectedRoute component={Welcome} />}
-        />
-        <Route path="/guardian" element={<GuardianPage />} />
+        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/guardian/:id" element={<GuardianPage />} />
       </Routes>
     </AuthContextComponent>
   );

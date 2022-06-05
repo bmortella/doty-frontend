@@ -14,14 +14,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import api from "../../apis/api";
 
 function WelcomeRegisterPet() {
-  const [registeredPets, setRegisteredPets] = useState([
-    { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "1" },
-    { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "2" },
-    { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "3" },
-    { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "4" },
-    { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "5" },
-    { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "6" },
-  ]);
+  const [registeredPets, setRegisteredPets] = useState([]);
 
   // Pagination
   const [page, setPage] = useState(0);

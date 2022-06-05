@@ -20,7 +20,10 @@ function WelcomeRegisterPet() {
   const [page, setPage] = useState(0);
 
   useEffect(() => {
-    if (page > Math.ceil(registeredPets.length / 6) - 1) {
+    if (
+      registeredPets.length > 0 &&
+      page > Math.ceil(registeredPets.length / 6) - 1
+    ) {
       setPage(page - 1);
     }
   }, [registeredPets]);
@@ -29,7 +32,7 @@ function WelcomeRegisterPet() {
     const firstPageIndex = page * 6;
     const lastPageIndex = firstPageIndex + 6;
     return registeredPets.slice(firstPageIndex, lastPageIndex);
-  }, [page]);
+  }, [page, registeredPets]);
 
   // Form
   setLocale({
@@ -60,7 +63,7 @@ function WelcomeRegisterPet() {
   async function onSubmit(data) {
     try {
       const response = await api.post("/pets", data);
-      setRegisteredPets([...registeredPets, response.data]);
+      setRegisteredPets([response.data, ...registeredPets]);
       reset();
       if (isOpen) closeDialog();
     } catch (err) {
@@ -276,7 +279,10 @@ function WelcomeRegisterPet() {
             </button>
             <button
               className="inline-flex justify-center items-center text-neutral py-4 disabled:text-gray-300 group"
-              disabled={page === Math.ceil(registeredPets.length / 6) - 1}
+              disabled={
+                page === Math.ceil(registeredPets.length / 6) - 1 ||
+                registeredPets.length === 0
+              }
               onClick={() => setPage(page + 1)}
             >
               Próximo

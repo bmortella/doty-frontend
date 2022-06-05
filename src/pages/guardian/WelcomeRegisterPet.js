@@ -1,7 +1,7 @@
 import { PlusCircle, Trash2, ArrowLeft, ArrowRight } from "react-feather";
 import instagramPost from "../../assets/img/instagram-post.svg";
 
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
@@ -23,6 +23,22 @@ function WelcomeRegisterPet() {
     { name: "Nala", sex: "Macho", age: "1 ano", size: "Pequeno", _id: "6" },
   ]);
 
+  // Pagination
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    if (page > Math.ceil(registeredPets.length / 6) - 1) {
+      setPage(page - 1);
+    }
+  }, [registeredPets]);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = page * 6;
+    const lastPageIndex = firstPageIndex + 6;
+    return registeredPets.slice(firstPageIndex, lastPageIndex);
+  }, [page]);
+
+  // Form
   setLocale({
     mixed: { required: "Campo obrigatório" },
     string: {
@@ -79,7 +95,7 @@ function WelcomeRegisterPet() {
     }
   }
 
-  // Controle dialog
+  // Control dialog
   let [isOpen, setIsOpen] = useState(false);
   function closeDialog() {
     setIsOpen(false);
@@ -236,7 +252,7 @@ function WelcomeRegisterPet() {
               </tr>
             </thead>
             <tbody>
-              {registeredPets.map((pet) => (
+              {currentTableData.map((pet) => (
                 <tr
                   className="bg-white border-b odd:bg-white even:bg-gray-50"
                   key={pet._id}
@@ -257,13 +273,21 @@ function WelcomeRegisterPet() {
             </tbody>
           </table>
           <div className="flex flex-nowrap justify-between mx-4">
-            <button className="inline-flex justify-center items-center text-neutral py-4">
-              <ArrowLeft className="text-gray-600 mr-2" />
+            <button
+              className="inline-flex justify-center items-center text-neutral py-4 disabled:text-gray-300 group"
+              disabled={page === 0}
+              onClick={() => setPage(page - 1)}
+            >
+              <ArrowLeft className="text-gray-600 mr-2 group-disabled:text-gray-400" />
               Anterior
             </button>
-            <button className="inline-flex justify-center items-center text-neutral py-4">
+            <button
+              className="inline-flex justify-center items-center text-neutral py-4 disabled:text-gray-300 group"
+              disabled={page === Math.ceil(registeredPets.length / 6) - 1}
+              onClick={() => setPage(page + 1)}
+            >
               Próximo
-              <ArrowRight className="text-gray-600 ml-2" />
+              <ArrowRight className="text-gray-600 ml-2 group-disabled:text-gray-400" />
             </button>
           </div>
         </div>

@@ -186,7 +186,7 @@ function WelcomeRegisterPet() {
                 </div>
                 <div className="mb-4">
                   <label htmlFor="age" className="block text-sm">
-                    Nome
+                    Idade
                   </label>
                   <select
                     id="age"

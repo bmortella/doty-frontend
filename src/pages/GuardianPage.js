@@ -25,7 +25,7 @@ function GuardianPage() {
   }, []);
   return (
     <div className="flex flex-col bg-secondary-white">
-      <div className="bg-primary h-46 text-white flex flex-col items-center justify-around py-2 sm:py-4">
+      <div className="bg-primary h-46 text-white flex flex-col lg:absolute lg:w-full items-center justify-around py-2 sm:py-4">
         <div className="flex flex-row text-spread items-center">
           <div className="text-6xl font-grandstander mx-4 ml-3.5 2xl:mr-14 xl:mx-10 lg:mx-8 lg:text-7xl md:mr-12 sm:mx-6">
             DOTY
@@ -40,24 +40,28 @@ function GuardianPage() {
       </div>
       <div>
         <div className="flex flex-col items-center text-center justify-center">
-          <UserPlus className="h-20 sm:h-25 lg:h-30" />
-          <div className="flex flex-col items-center justify-center text-center lg:mt-3">
-            <div className="font-bold text-lg sm:text-xl">
-              {guardianInfo.name}
+          <div className="lg:flex lg:flex-row lg:mt-10 lg:items-end lg:pt-10 lg:w-11/12 xl:w-10/12">
+            <div className="flex justify-center lg:ml-10 lg:pl-8 xl:ml-20">
+              <UserPlus className="h-20 sm:h-25 lg:h-30 xl:mr-10" />
             </div>
-          </div>
-          <div className="flex flex-row my-2">
-            <div className="flex flex-row">
-              <div>
-                <div className="text-sm flex flex-row items-center text-center justify-start sm:text-base font-medium mr-8 lg:text-lg lg:font-medium lg:ml-15 lg:mr-10">
-                  {" "}
-                  <Phone className="h-4 sm:h-5" /> {guardianInfo.phone}
-                </div>
+            <div className="flex flex-col items-center justify-center text-center lg:mt-3 lg:ml-10 lg:pr-10 xl:ml-10 xl:pl-10">
+              <div className="font-bold text-lg sm:text-xl lg:text-2xl xl:text-3xl">
+                {guardianInfo.name}
               </div>
-              <div>
-                <div className="text-sm flex flex-row justify-end items-center text-center sm:text-base font-medium lg:text-lg lg:font-medium lg:ml-20">
-                  {" "}
-                  <Mail className="h-4 sm:h-5" /> {guardianInfo.email}
+            </div>
+            <div className="my-2 lg:my-0 xl:ml-20 xl:pl-10">
+              <div className="flex flex-row">
+                <div>
+                  <div className="text-sm flex flex-row lg:justify-end items-center text-center justify-start sm:text-base font-medium mr-8 lg:text-lg lg:font-medium lg:ml-20 lg:mr-10">
+                    {" "}
+                    <Phone className="h-4 sm:h-5 lg:mr-1" /> {guardianInfo.phone}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-sm flex flex-row justify-end items-center text-center sm:text-base font-medium lg:text-lg lg:font-medium lg:ml-20">
+                    {" "}
+                    <Mail className="h-4 sm:h-5 lg:mr-1" /> {guardianInfo.email}
+                  </div>
                 </div>
               </div>
             </div>
@@ -70,10 +74,16 @@ function GuardianPage() {
               Nós levamos muito a serio a adoção responsável. Por isso, o
               processo consiste em três etapas:
             </div>
-            <div className="text-secondary-green font-bold my-3.5 flex flex-row text-sm sm:text-lg sm:font-semibold lg:text-xl">
-              Formulário <ArrowRight className="h-5 sm:h-7" /> Entrevista{" "}
-              <ArrowRight className="h-5 sm:h-7" />
-              Visita e Retirada
+            <div className="text-secondary-green font-bold my-3.5 flex flex-row justify-between text-sm w-4/5 sm:text-lg sm:font-semibold sm:w-4/5 lg:text-xl lg:w-3/5 ">
+              <div>Formulário</div>
+              <div>
+                <ArrowRight className="h-5 sm:h-7" />
+              </div>
+              <div>Entrevista</div>
+              <div>
+                <ArrowRight className="h-5 sm:h-7" />
+              </div>
+              <div>Visita e Retirada</div>
             </div>
             <div className="text-md my-6 mx-4 lg:text-lg">
               Para começar, precisamos confirmar algumas informações e solicitar

@@ -28,7 +28,7 @@ function Welcome() {
         </h2>
       </SideBanner>
       <Content>
-        <img src={success} className="mb-10 mt-10 mx-auto lg:w-80"></img>
+        <img src={success} className="mb-10 mt-10 mx-auto lg:w-80" alt=""></img>
         <h2 className="font-semibold text-2xl text-secondary-blue">
           Oba! Ficamos muito felizes com o seu interesse
           {authContext.loggedInUser.user.role === "guardian"
@@ -47,10 +47,7 @@ function Welcome() {
           <ArrowRight />
           <p>Visita e Retirada</p>
         </div>
-        <Link
-          to="/login"
-          className="block w-full lg:w-80 mt-10 text-white text-center bg-primary disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-4 py-2.5 mr-2 mb-2 focus:outline-none"
-        >
+        <Link to="/login" className="btn block lg:w-80 mt-10">
           Continuar
         </Link>
       </Content>

@@ -6,6 +6,7 @@ import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
 import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
+import GuardianPage from "../pages/GuardianPage";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -13,9 +14,9 @@ function App() {
   return (
     <AuthContextComponent>
       <Routes>
-        <Route path="/" element={<ProtectedRoute component={Home} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />       
         <Route
           path="/welcome"
           element={<ProtectedRoute component={Welcome} />}
@@ -24,6 +25,8 @@ function App() {
           path="/guardian/welcome/registerPets"
           element={<WelcomeRegisterPet />}
         />
+            
+        <Route path="/guardian/:id" element={<GuardianPage />} />
       </Routes>
     </AuthContextComponent>
   );

@@ -13,7 +13,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Signup(props) {
+function Signup() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 

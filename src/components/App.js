@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
+import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
 
@@ -15,8 +16,16 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/welcome" element={<Welcome />} />
+        <Route path="/login" element={<Login />} />       
+        <Route
+          path="/welcome"
+          element={<ProtectedRoute component={Welcome} />}
+        />
+        <Route
+          path="/guardian/welcome/registerPets"
+          element={<WelcomeRegisterPet />}
+        />
+            
         <Route path="/guardian/:id" element={<GuardianPage />} />
       </Routes>
     </AuthContextComponent>

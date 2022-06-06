@@ -4,3 +4,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Grandstander:wght@600&display=swap");
+
+@layer components {
+  .btn {
+    @apply w-full text-white text-center bg-primary disabled:bg-neutral focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base py-2.5 mr-2 mb-2 focus:outline-none;
+  }
+}

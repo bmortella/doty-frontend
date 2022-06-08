@@ -105,7 +105,11 @@ function WelcomeRegisterPet() {
           adoção
         </h1>
         <p className="text-neutral mt-1 text-left">É bem rapidinho!</p>
-        <img src={instagramPost} className="mt-10 px-2 xl:px-16 2xl:px-8"></img>
+        <img
+          src={instagramPost}
+          className="mt-10 px-2 xl:px-16 2xl:px-8"
+          alt=""
+        ></img>
       </div>
 
       <div className="py-8 px-4 lg:flex lg:flex-col lg:justify-center lg:w-full 2xl:px-36">
@@ -292,10 +296,13 @@ function WelcomeRegisterPet() {
         </div>
 
         <div className="flex flex-col 2xl:flex-row-reverse w-full mt-8 px-4">
-          <Link to="/login" className="btn 2xl:w-44">
+          <Link to="/guardian/dashboard" replace className="btn 2xl:w-44">
             Finalizar Cadastro
           </Link>
-          <Link to="/login" className="btn text-primary bg-white 2xl:w-44">
+          <Link
+            to="/guardian/dashboard"
+            className="btn text-primary bg-white 2xl:w-44"
+          >
             Pular
           </Link>
         </div>

@@ -8,15 +8,13 @@ import { ArrowRight } from "react-feather";
 import success from "../assets/img/success.svg";
 
 import BannerLayout from "../components/BannerLayout";
-import SideBanner from "../components/SideBanner";
-import Content from "../components/Content";
 
 function Welcome() {
   const authContext = useContext(AuthContext);
 
   return (
-    <BannerLayout>
-      <SideBanner>
+    <BannerLayout.Layout>
+      <BannerLayout.SideBanner>
         <h1 className="text-5xl font-grandstander uppercase lg:text-8xl lg:text-left">
           Doty
         </h1>
@@ -26,9 +24,9 @@ function Welcome() {
             processo de adoção<span className="text-white font-normal">.</span>
           </span>
         </h2>
-      </SideBanner>
-      <Content>
-        <img src={success} className="mb-10 mt-10 mx-auto lg:w-80" alt=""></img>
+      </BannerLayout.SideBanner>
+      <BannerLayout.Content>
+        <img src={success} className="mb-10 mt-10 mx-auto lg:w-80" alt="" />
         <h2 className="font-semibold text-2xl text-secondary-blue">
           Oba! Ficamos muito felizes com o seu interesse
           {authContext.loggedInUser.user.role === "guardian"
@@ -50,8 +48,8 @@ function Welcome() {
         <Link to="/login" className="btn block lg:w-80 mt-10">
           Continuar
         </Link>
-      </Content>
-    </BannerLayout>
+      </BannerLayout.Content>
+    </BannerLayout.Layout>
   );
 }
 

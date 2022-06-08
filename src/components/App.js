@@ -5,6 +5,7 @@ import Signup from "../pages/auth/Signup";
 import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
 import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
+import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
 
@@ -14,16 +15,29 @@ function App() {
   return (
     <AuthContextComponent>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* COMMON ROUTES */}
+        <Route path="/" element={<ProtectedRoute component={Home} />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />       
+        <Route path="/login" element={<Login />} />
+
+        {/* COMMON PROTECTED */}
         <Route
           path="/welcome"
           element={<ProtectedRoute component={Welcome} />}
         />
+
+        {/* GUARDIAN ROUTES */}
         <Route
           path="/guardian/welcome/registerPets"
-          element={<WelcomeRegisterPet />}
+          element={
+            <ProtectedRoute component={WelcomeRegisterPet} role="guardian" />
+          }
+        />
+        <Route
+          path="/guardian/welcome/signupComplete"
+          element={
+            <ProtectedRoute component={SignupConclusion} role="guardian" />
+          }
         />
             
         <Route path="/guardian/:id" element={<GuardianPage />} />
@@ -31,7 +45,5 @@ function App() {
     </AuthContextComponent>
   );
 }
-
-// DUVIDA: COMO FAZER PARA IR PARA TAB CERTA NO SIGNUP DEPENDENDO DA ORIGEM -> usar provider
 
 export default App;

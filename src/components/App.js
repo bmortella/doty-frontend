@@ -15,10 +15,7 @@ function App() {
     <AuthContextComponent>
       <Routes>
         {/* COMMON ROUTES */}
-        <Route
-          path="/"
-          element={<ProtectedRoute component={Home} role="guardian" />}
-        />
+        <Route path="/" element={<ProtectedRoute component={Home} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
 
@@ -31,11 +28,15 @@ function App() {
         {/* GUARDIAN ROUTES */}
         <Route
           path="/guardian/welcome/registerPets"
-          element={<ProtectedRoute component={WelcomeRegisterPet} />}
+          element={
+            <ProtectedRoute component={WelcomeRegisterPet} role="guardian" />
+          }
         />
         <Route
           path="/guardian/welcome/signupComplete"
-          element={<ProtectedRoute component={SignupConclusion} />}
+          element={
+            <ProtectedRoute component={SignupConclusion} role="guardian" />
+          }
         />
       </Routes>
     </AuthContextComponent>

@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/authContext";
 import BannerLayout from "../../components/BannerLayout";
 
 import success from "../../assets/img/success.svg";
@@ -6,6 +8,8 @@ import { Link as LinkIcon } from "react-feather";
 import { Link } from "react-router-dom";
 
 function SignupConclusion() {
+  const authContext = useContext(AuthContext);
+
   return (
     <BannerLayout.Layout>
       <BannerLayout.SideBanner>
@@ -33,7 +37,9 @@ function SignupConclusion() {
           <button
             className="btn md:w-80 inline-flex justify-center items-center"
             onClick={window.navigator.clipboard.writeText(
-              `${window.location.href.split("/")[2]}/:id`
+              `${window.location.href.split("/")[2]}/guardian/${
+                authContext.loggedInUser.user._id
+              }`
             )}
           >
             <LinkIcon className="mr-2" size={20} />

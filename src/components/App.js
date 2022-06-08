@@ -6,6 +6,7 @@ import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
+import TermsOfUse from "../pages/TermsOfUse";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/guardian/:id" element={<GuardianPage />} />
+        <Route path="/guardian/terms" element={<TermsOfUse />} />
       </Routes>
     </AuthContextComponent>
   );

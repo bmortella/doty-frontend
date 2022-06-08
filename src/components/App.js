@@ -7,6 +7,7 @@ import Welcome from "../pages/Welcome";
 import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
+import GuardianPage from "../pages/GuardianPage";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -38,6 +39,8 @@ function App() {
             <ProtectedRoute component={SignupConclusion} role="guardian" />
           }
         />
+            
+        <Route path="/guardian/:id" element={<GuardianPage />} />
       </Routes>
     </AuthContextComponent>
   );

@@ -45,7 +45,7 @@ function GuardianPage() {
               <UserPlus className="h-20 sm:h-25 lg:h-30 xl:mr-10" />
             </div>
             <div className="flex flex-col items-center justify-center text-center lg:mt-3 lg:ml-10 lg:pr-10 xl:ml-10 xl:pl-10">
-              <div className="font-bold text-lg sm:text-xl lg:text-2xl xl:text-3xl">
+              <div className="font-bold text-lg sm:text-xl lg:text-2xl xl:text-2xl">
                 {guardianInfo.name}
               </div>
             </div>

@@ -8,7 +8,7 @@ import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
-import TermsOfUse from "../pages/TermsOfUse";
+import TermsOfUse from "../pages/adopter/TermsOfUse";
 
 import { AuthContextComponent } from "../contexts/authContext";
 

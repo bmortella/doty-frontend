@@ -9,6 +9,7 @@ import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
 import TermsOfUse from "../pages/adopter/TermsOfUse";
+import FormForAdoption from "../pages/adopter/FormForAdoption";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -40,9 +41,10 @@ function App() {
             <ProtectedRoute component={SignupConclusion} role="guardian" />
           }
         />
-            
+
         <Route path="/guardian/:id" element={<GuardianPage />} />
-        <Route path="/guardian/terms" element={<TermsOfUse />} />
+        <Route path="/adopter/terms" element={<TermsOfUse />} />
+        <Route path="/adopter/terms/form" element={<FormForAdoption />} />
       </Routes>
     </AuthContextComponent>
   );

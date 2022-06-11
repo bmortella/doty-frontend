@@ -1,5 +1,5 @@
-import { Fragment, useContext } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Fragment, useContext, useState } from "react";
+import { NavLink, Outlet, useOutletContext } from "react-router-dom";
 
 import { AuthContext } from "../contexts/authContext";
 
@@ -11,14 +11,14 @@ import { Link as LinkIcon } from "react-feather";
 import "../assets/styles/background.css";
 
 const navigation = [
-  { name: "Página Inicial", href: "", current: false, end: true },
-  { name: "Animais Cadastrados", href: "pets", current: false, end: false },
-  { name: "Adotantes", href: "adopters", current: false, end: false },
+  { name: "Página Inicial", href: "", end: true },
+  { name: "Animais Cadastrados", href: "pets", end: false },
+  { name: "Adotantes", href: "adopters", end: false },
 ];
 
 const userNavigation = [
-  { name: "Meu Perfil", href: "#" },
-  { name: "Sair", href: "#" },
+  { name: "Meu Perfil", href: "dashboard/profile" },
+  { name: "Sair", href: "/signout" },
 ];
 
 function classNames(...classes) {
@@ -27,6 +27,7 @@ function classNames(...classes) {
 
 export default function StackedLayout() {
   const authContext = useContext(AuthContext);
+  const [title, setTitle] = useState("");
 
   function copyLink() {
     window.navigator.clipboard.writeText(
@@ -65,7 +66,6 @@ export default function StackedLayout() {
                                 "px-3 py-2 rounded-md text-sm font-medium"
                               )
                             }
-                            aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
                           </NavLink>
@@ -162,13 +162,9 @@ export default function StackedLayout() {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block px-3 py-2 rounded-md text-base font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
+                      className={
+                        "block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                      }
                     >
                       {item.name}
                     </Disclosure.Button>
@@ -240,7 +236,7 @@ export default function StackedLayout() {
         <header className="bg-primary pb-52">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between">
-              <h1 className="text-3xl font-bold text-white">Dashboard</h1>
+              <h1 className="text-3xl font-bold text-white">{title}</h1>
               <button
                 className="btn font-normal text-sm hidden md:w-80 md:inline-flex justify-center items-center bg-secondary-blue"
                 onClick={copyLink}
@@ -253,7 +249,7 @@ export default function StackedLayout() {
         </header>
         <main className="-mt-48 relative">
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 bg-white rounded-lg shadow-md">
-            <Outlet />
+            <Outlet context={{ setTitle }} />
           </div>
         </main>
       </div>

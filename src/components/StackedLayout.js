@@ -171,13 +171,13 @@ export default function StackedLayout() {
                   ))}
                 </div>
                 <div className="pt-4 pb-3 border-t border-gray-700">
-                  <button
+                  {/* <button
                     className="btn font-normal text-sm inline-flex justify-center items-center bg-secondary-blue"
                     onClick={copyLink}
                   >
                     <LinkIcon className="mr-2" size={20} />
                     Copiar link do processo de adoção
-                  </button>
+                  </button> */}
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
                       {authContext.loggedInUser.user.avatar ? (
@@ -237,17 +237,17 @@ export default function StackedLayout() {
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between">
               <h1 className="text-3xl font-bold text-white">{title}</h1>
-              <button
+              {/* <button
                 className="btn font-normal text-sm hidden md:w-80 md:inline-flex justify-center items-center bg-secondary-blue"
                 onClick={copyLink}
               >
                 <LinkIcon className="mr-2" size={20} />
                 Copiar link do processo de adoção
-              </button>
+              </button> */}
             </div>
           </div>
         </header>
-        <main className="-mt-48 relative">
+        <main className="-mt-52 relative">
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 bg-white rounded-lg shadow-md">
             <Outlet context={{ setTitle }} />
           </div>

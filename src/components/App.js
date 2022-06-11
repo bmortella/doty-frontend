@@ -10,6 +10,7 @@ import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
 import TermsOfUse from "../pages/TermsOfUse";
 import StackedLayout from "../components/StackedLayout";
+import Profile from "../pages/Profile";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -46,7 +47,8 @@ function App() {
           path="/guardian/dashboard"
           element={<ProtectedRoute component={StackedLayout} role="guardian" />}
         >
-          <Route path="" element={<p>Pagina Inicial</p>} />
+          <Route path="" element={<p>Home</p>} />
+          <Route path="profile" element={<Profile />} />
           <Route path="pets" element={<p>Hello World!</p>} />
           <Route path="adopters" element={<p>Ola Mundo!</p>} />
         </Route>

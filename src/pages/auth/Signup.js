@@ -28,7 +28,7 @@ function Signup() {
   const schema = yup
     .object({
       name: yup.string().required().min(2).max(24),
-      email: yup.string().required().email("Digite um email válido"),
+      email: yup.string().required().email("Digite um e-mail válido"),
       phone: yup
         .string()
         .required()

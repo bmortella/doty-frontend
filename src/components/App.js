@@ -45,10 +45,14 @@ function App() {
         <Route
           path="/guardian/dashboard"
           element={<ProtectedRoute component={StackedLayout} role="guardian" />}
-        />
+        >
+          <Route path="" element={<p>Pagina Inicial</p>} />
+          <Route path="pets" element={<p>Hello World!</p>} />
+          <Route path="adopters" element={<p>Ola Mundo!</p>} />
+        </Route>
 
-        <Route path="/guardian/:id" element={<GuardianPage />} />
         <Route path="/guardian/terms" element={<TermsOfUse />} />
+        <Route path="/guardian/:id" element={<GuardianPage />} />
       </Routes>
     </AuthContextComponent>
   );

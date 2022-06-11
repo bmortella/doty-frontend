@@ -1,4 +1,5 @@
 import { Fragment, useContext } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 
 import { AuthContext } from "../contexts/authContext";
 
@@ -10,10 +11,11 @@ import { Link as LinkIcon } from "react-feather";
 import "../assets/styles/background.css";
 
 const navigation = [
-  { name: "Página Inicial", href: "#", current: true },
-  { name: "Animais Cadastrados", href: "#", current: false },
-  { name: "Adotantes", href: "#", current: false },
+  { name: "Página Inicial", href: "", current: false, end: true },
+  { name: "Animais Cadastrados", href: "pets", current: false, end: false },
+  { name: "Adotantes", href: "adopters", current: false, end: false },
 ];
+
 const userNavigation = [
   { name: "Meu Perfil", href: "#" },
   { name: "Sair", href: "#" },
@@ -25,6 +27,14 @@ function classNames(...classes) {
 
 export default function StackedLayout() {
   const authContext = useContext(AuthContext);
+
+  function copyLink() {
+    window.navigator.clipboard.writeText(
+      `${window.location.href.split("/")[2]}/guardian/${
+        authContext.loggedInUser.user._id
+      }`
+    );
+  }
 
   return (
     <>
@@ -43,19 +53,22 @@ export default function StackedLayout() {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          <NavLink
+                            end={item.end}
                             key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "px-3 py-2 rounded-md text-sm font-medium"
-                            )}
+                            to={item.href}
+                            className={({ isActive }) =>
+                              classNames(
+                                isActive
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "px-3 py-2 rounded-md text-sm font-medium"
+                              )
+                            }
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
-                          </a>
+                          </NavLink>
                         ))}
                       </div>
                     </div>
@@ -83,7 +96,7 @@ export default function StackedLayout() {
                               />
                             ) : (
                               <a
-                                class="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600"
+                                className="flex items-center justify-center w-8 h-8 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600"
                                 href="#"
                               >
                                 {authContext.loggedInUser.user.name
@@ -164,11 +177,7 @@ export default function StackedLayout() {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                   <button
                     className="btn font-normal text-sm inline-flex justify-center items-center bg-secondary-blue"
-                    onClick={window.navigator.clipboard.writeText(
-                      `${window.location.href.split("/")[2]}/guardian/${
-                        authContext.loggedInUser.user._id
-                      }`
-                    )}
+                    onClick={copyLink}
                   >
                     <LinkIcon className="mr-2" size={20} />
                     Copiar link do processo de adoção
@@ -183,7 +192,7 @@ export default function StackedLayout() {
                         />
                       ) : (
                         <a
-                          class="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600"
+                          className="flex items-center justify-center w-10 h-10 text-xs font-medium text-white bg-gray-700 rounded-full hover:bg-gray-600"
                           href="#"
                         >
                           {authContext.loggedInUser.user.name
@@ -234,11 +243,7 @@ export default function StackedLayout() {
               <h1 className="text-3xl font-bold text-white">Dashboard</h1>
               <button
                 className="btn font-normal text-sm hidden md:w-80 md:inline-flex justify-center items-center bg-secondary-blue"
-                onClick={window.navigator.clipboard.writeText(
-                  `${window.location.href.split("/")[2]}/guardian/${
-                    authContext.loggedInUser.user._id
-                  }`
-                )}
+                onClick={copyLink}
               >
                 <LinkIcon className="mr-2" size={20} />
                 Copiar link do processo de adoção
@@ -248,11 +253,7 @@ export default function StackedLayout() {
         </header>
         <main className="-mt-48 relative">
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 bg-white rounded-lg shadow-md">
-            {/* Replace with your content */}
-            <div className="px-4 py-6 sm:px-0">
-              <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-            </div>
-            {/* /End replace */}
+            <Outlet />
           </div>
         </main>
       </div>

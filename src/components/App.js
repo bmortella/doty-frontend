@@ -9,6 +9,7 @@ import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
 import TermsOfUse from "../pages/TermsOfUse";
+import StackedLayout from "../components/StackedLayout";
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -40,7 +41,12 @@ function App() {
             <ProtectedRoute component={SignupConclusion} role="guardian" />
           }
         />
-            
+
+        <Route
+          path="/guardian/dashboard"
+          element={<ProtectedRoute component={StackedLayout} role="guardian" />}
+        />
+
         <Route path="/guardian/:id" element={<GuardianPage />} />
         <Route path="/guardian/terms" element={<TermsOfUse />} />
       </Routes>

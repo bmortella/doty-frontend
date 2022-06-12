@@ -5,18 +5,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { setLocale } from "yup";
 import * as yup from "yup";
 
-import ChangePasswordDialog from "../components/ChangePasswordDialog";
+import ChangePasswordDialog from "../../../components/ChangePasswordDialog";
 
-import { AuthContext } from "../contexts/authContext";
-import api from "../apis/api";
+import { AuthContext } from "../../../contexts/authContext";
+import api from "../../../apis/api";
 
-import designer from "../assets/img/designer.svg";
+import designer from "../../../assets/img/designer.svg";
 
 function Profile() {
   const { setTitle } = useOutletContext();
 
   useEffect(() => {
     setTitle("Meu Perfil");
+    document.title = "Doty - Meu Perfil";
   });
 
   // Control dialog

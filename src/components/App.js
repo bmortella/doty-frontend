@@ -10,7 +10,10 @@ import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
 import TermsOfUse from "../pages/TermsOfUse";
 import StackedLayout from "../components/StackedLayout";
-import Profile from "../pages/Profile";
+import Profile from "../pages/dashboard/common/Profile";
+import Pets from "../pages/dashboard/guardian/Pets";
+
+// TODO: fix import hell
 
 import { AuthContextComponent } from "../contexts/authContext";
 
@@ -49,7 +52,7 @@ function App() {
         >
           <Route path="" element={<p>Home</p>} />
           <Route path="profile" element={<Profile />} />
-          <Route path="pets" element={<p>Hello World!</p>} />
+          <Route path="pets" element={<Pets />} />
           <Route path="adopters" element={<p>Ola Mundo!</p>} />
         </Route>
 

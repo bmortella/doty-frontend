@@ -247,8 +247,8 @@ export default function StackedLayout() {
             </div>
           </div>
         </header>
-        <main className="-mt-52 relative">
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 bg-white rounded-lg shadow-md">
+        <main className="-mt-48 relative">
+          <div className="max-w-7xl mx-auto py-6 px-6 lg:px-8 bg-white rounded-lg shadow-md">
             <Outlet context={{ setTitle }} />
           </div>
         </main>

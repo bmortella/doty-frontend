@@ -6,7 +6,7 @@ import { AuthContext } from "../contexts/authContext";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
-import { Link as LinkIcon } from "react-feather";
+// import { Link as LinkIcon } from "react-feather";
 
 import "../assets/styles/background.css";
 
@@ -102,7 +102,7 @@ export default function StackedLayout() {
                                 {authContext.loggedInUser.user.name
                                   .split(" ")
                                   .map((n) => n[0])
-                                  .join(".")
+                                  .join("")
                                   .toUpperCase()}
                               </a>
                             )}
@@ -194,7 +194,7 @@ export default function StackedLayout() {
                           {authContext.loggedInUser.user.name
                             .split(" ")
                             .map((n) => n[0])
-                            .join(".")
+                            .join("")
                             .toUpperCase()}
                         </a>
                       )}

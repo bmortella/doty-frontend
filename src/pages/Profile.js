@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setLocale } from "yup";
 import * as yup from "yup";
+
 import { AuthContext } from "../contexts/authContext";
+import api from "../apis/api";
 
 import designer from "../assets/img/designer.svg";
 
@@ -47,7 +49,41 @@ function Profile() {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
-    console.log(data);
+    try {
+      const response = await api.put("/profile", data);
+      authContext.setLoggedInUser({
+        ...authContext.loggedInUser,
+        user: {
+          ...authContext.loggedInUser.user,
+          ...response.data.user,
+        },
+      });
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify({
+          ...authContext.loggedInUser,
+          user: {
+            ...authContext.loggedInUser.user,
+            ...response.data.user,
+          },
+        })
+      );
+      reset();
+      window.location.reload(false);
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.errors?.msg === "USER_ALREADY_EXISTS") {
+          setError(
+            "email",
+            {
+              type: "custom",
+              message: "Este email já está cadastrado",
+            },
+            { shouldFocus: true }
+          );
+        }
+      }
+    }
   }
 
   return (
@@ -65,7 +101,7 @@ function Profile() {
             type="text"
             id="name"
             className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-            maxLength={12}
+            maxLength={32}
             defaultValue={authContext.loggedInUser.user.name}
             {...register("name")}
           />
@@ -81,7 +117,6 @@ function Profile() {
             type="text"
             id="email"
             className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-            maxLength={12}
             defaultValue={authContext.loggedInUser.user.email}
             {...register("email")}
           />
@@ -97,7 +132,12 @@ function Profile() {
             type="text"
             id="phone"
             className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-            maxLength={12}
+            maxLength={11}
+            onKeyPress={(event) => {
+              if (!/[0-9]/.test(event.key)) {
+                event.preventDefault();
+              }
+            }}
             defaultValue={authContext.loggedInUser.user.phone}
             {...register("phone")}
           />

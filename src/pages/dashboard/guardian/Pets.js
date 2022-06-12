@@ -1,31 +1,72 @@
-import { useEffect, useMemo, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useEffect, useMemo, useState, useContext } from "react";
+import { useOutletContext, Link } from "react-router-dom";
 
-import { PlusCircle, Trash2, ArrowLeft, ArrowRight } from "react-feather";
+import { AuthContext } from "../../../contexts/authContext";
+
+import api from "../../../apis/api";
+
+import { Edit, Trash2, ArrowLeft, ArrowRight } from "react-feather";
+
+import RegisterPetDialog from "../../../components/RegisterPetDialog";
+
+const petsPerPage = 10;
 
 function Pets() {
   const { setTitle } = useOutletContext();
+  const authContext = useContext(AuthContext);
+
+  const [registeredPets, setRegisteredPets] = useState([]);
 
   useEffect(() => {
     setTitle("Animais Cadastrados");
     document.title = "Doty - Animais Cadastrados";
-  });
 
-  const [registeredPets, setRegisteredPets] = useState([]);
+    async function getPets() {
+      try {
+        const response = await api.get(
+          `/pets/${authContext.loggedInUser.user._id}`
+        );
+        setRegisteredPets(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getPets();
+  }, []);
+
+  async function deletePet(pet) {
+    try {
+      await api.delete(`/pets/${pet._id}`);
+      setRegisteredPets(registeredPets.filter((item) => item._id !== pet._id));
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   // Pagination
   const [page, setPage] = useState(0);
 
   const currentTableData = useMemo(() => {
-    const firstPageIndex = page * 10;
-    const lastPageIndex = firstPageIndex + 10;
+    const firstPageIndex = page * petsPerPage;
+    const lastPageIndex = firstPageIndex + petsPerPage;
     return registeredPets.slice(firstPageIndex, lastPageIndex);
   }, [page, registeredPets]);
+
+  // Dialogs
+  const [isRegisterPetDialogOpen, setRegisterPetDialogOpen] = useState(false);
+
+  function registerPet(pet) {
+    setRegisteredPets([pet, ...registeredPets]);
+  }
 
   return (
     <>
       <div className="flex justify-end">
-        <button type="button" className="btn mr-0 md:w-32 text-xs">
+        <button
+          type="button"
+          className="btn mr-0 md:w-32 text-xs"
+          onClick={() => setRegisterPetDialogOpen(true)}
+        >
           Adicionar Animais
         </button>
       </div>
@@ -45,7 +86,7 @@ function Pets() {
               <th scope="col" className="px-6 py-3 hidden lg:table-cell">
                 Idade
               </th>
-              <th scope="col" className="px-4 py-3"></th>
+              <th scope="col" className="py-3"></th>
             </tr>
           </thead>
           <tbody>
@@ -60,10 +101,25 @@ function Pets() {
                 <td className="px-6 py-4">{pet.sex}</td>
                 <td className="px-6 py-4">{pet.size}</td>
                 <td className="px-6 py-4 hidden lg:table-cell">{pet.age}</td>
-                <td className="px-4 py-4">
-                  <button type="button">
-                    <Trash2 className="text-gray-600" />
-                  </button>
+                <td className="px-6 py-4 md:w-8">
+                  <div className="flex items-center">
+                    <Link
+                      to={pet._id}
+                      className="md:mr-8 text-[#1973E8] font-medium"
+                    >
+                      Detalhes
+                    </Link>
+                    <button type="button" className="hidden md:block mr-8">
+                      <Edit className="text-gray-600" />
+                    </button>
+                    <button
+                      type="button"
+                      className="hidden md:block"
+                      onClick={() => deletePet(pet)}
+                    >
+                      <Trash2 className="text-gray-600" />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -84,7 +140,7 @@ function Pets() {
           <button
             className="inline-flex justify-center items-center text-neutral py-4 disabled:text-gray-300 group text-sm"
             disabled={
-              page === Math.ceil(registeredPets.length / 6) - 1 ||
+              page === Math.ceil(registeredPets.length / petsPerPage) - 1 ||
               registeredPets.length === 0
             }
             onClick={() => setPage(page + 1)}
@@ -97,6 +153,11 @@ function Pets() {
           </button>
         </div>
       </div>
+      <RegisterPetDialog
+        isOpen={isRegisterPetDialogOpen}
+        closeDialog={() => setRegisterPetDialogOpen(false)}
+        action={registerPet}
+      />
     </>
   );
 }

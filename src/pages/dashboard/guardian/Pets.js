@@ -8,6 +8,7 @@ import api from "../../../apis/api";
 import { Edit, Trash2, ArrowLeft, ArrowRight } from "react-feather";
 
 import RegisterPetDialog from "../../../components/RegisterPetDialog";
+import EditPetDialog from "../../../components/EditPetDialog";
 
 const petsPerPage = 10;
 
@@ -54,9 +55,23 @@ function Pets() {
 
   // Dialogs
   const [isRegisterPetDialogOpen, setRegisterPetDialogOpen] = useState(false);
+  const [isEditPetDialogOpen, setEditPetDialogOpen] = useState(false);
+  const [petToEdit, setPetToEdit] = useState({});
 
   function registerPet(pet) {
     setRegisteredPets([pet, ...registeredPets]);
+  }
+
+  function editPet(pet) {
+    let clone = JSON.parse(JSON.stringify(registeredPets));
+    let index = clone.findIndex((obj) => obj._id == pet._id);
+    clone[index] = pet;
+    setRegisteredPets(clone);
+  }
+
+  function openEditPetDialog(pet) {
+    setPetToEdit(pet);
+    setEditPetDialogOpen(true);
   }
 
   return (
@@ -109,7 +124,11 @@ function Pets() {
                     >
                       Detalhes
                     </Link>
-                    <button type="button" className="hidden md:block mr-8">
+                    <button
+                      type="button"
+                      className="hidden md:block mr-8"
+                      onClick={() => openEditPetDialog(pet)}
+                    >
                       <Edit className="text-gray-600" />
                     </button>
                     <button
@@ -157,6 +176,12 @@ function Pets() {
         isOpen={isRegisterPetDialogOpen}
         closeDialog={() => setRegisterPetDialogOpen(false)}
         action={registerPet}
+      />
+      <EditPetDialog
+        isOpen={isEditPetDialogOpen}
+        toEdit={petToEdit}
+        closeDialog={() => setEditPetDialogOpen(false)}
+        action={editPet}
       />
     </>
   );

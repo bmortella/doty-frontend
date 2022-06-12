@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
 
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setLocale } from "yup";
 import * as yup from "yup";
+
+import api from "../apis/api";
 
 function ChangePasswordDialog(props) {
   // Form
@@ -20,11 +22,11 @@ function ChangePasswordDialog(props) {
   const schema = yup
     .object({
       currentPassword: yup.string().required().min(8),
-      password: yup.string().required().min(8),
+      newPassword: yup.string().required().min(8),
       confirmPassword: yup
         .string()
         .required()
-        .oneOf([yup.ref("password")], "As senhas não coindicem"),
+        .oneOf([yup.ref("newPassword")], "As senhas não coindicem"),
     })
     .required();
 
@@ -37,8 +39,27 @@ function ChangePasswordDialog(props) {
   } = useForm({ resolver: yupResolver(schema) });
 
   async function onSubmit(data) {
-    console.log(data);
-    reset();
+    try {
+      delete data.confirmPassword;
+      const response = await api.post("/changePassword", data);
+      if (response.data.msg === "PASSWORD_CHANGED") {
+        reset();
+        props.closeDialog();
+      }
+    } catch (err) {
+      if (err.response) {
+        if (err.response.data.errors?.msg === "WRONG_PASSWORD") {
+          setError(
+            "currentPassword",
+            {
+              type: "custom",
+              message: "Senha incorreta",
+            },
+            { shouldFocus: true }
+          );
+        }
+      }
+    }
   }
 
   return (
@@ -99,18 +120,18 @@ function ChangePasswordDialog(props) {
                     )}
                   </div>
                   <div className="mb-6">
-                    <label htmlFor="password" className="block mb-2 text-sm">
+                    <label htmlFor="newPassword" className="block mb-2 text-sm">
                       Nova Senha
                     </label>
                     <input
                       type="password"
-                      id="password"
+                      id="newPassword"
                       className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
-                      {...register("password")}
+                      {...register("newPassword")}
                     />
-                    {errors.password?.message && (
+                    {errors.newPassword?.message && (
                       <p className="mt-2 text-sm text-error">
-                        {errors.password.message}
+                        {errors.newPassword.message}
                       </p>
                     )}
                   </div>

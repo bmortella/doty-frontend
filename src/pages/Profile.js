@@ -1,9 +1,11 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { setLocale } from "yup";
 import * as yup from "yup";
+
+import ChangePasswordDialog from "../components/ChangePasswordDialog";
 
 import { AuthContext } from "../contexts/authContext";
 import api from "../apis/api";
@@ -16,6 +18,12 @@ function Profile() {
   useEffect(() => {
     setTitle("Meu Perfil");
   });
+
+  // Control dialog
+  let [isOpen, setIsOpen] = useState(false);
+  function closeDialog() {
+    setIsOpen(false);
+  }
 
   const authContext = useContext(AuthContext);
 
@@ -51,24 +59,17 @@ function Profile() {
   async function onSubmit(data) {
     try {
       const response = await api.put("/profile", data);
-      authContext.setLoggedInUser({
+      const updatedUser = {
         ...authContext.loggedInUser,
         user: {
           ...authContext.loggedInUser.user,
           ...response.data.user,
         },
-      });
-      localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify({
-          ...authContext.loggedInUser,
-          user: {
-            ...authContext.loggedInUser.user,
-            ...response.data.user,
-          },
-        })
-      );
+      };
+      authContext.setLoggedInUser(updatedUser);
+      localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
       reset();
+      // Recarregamos a pagina apenas para dar feedback ao usuario
       window.location.reload(false);
     } catch (err) {
       if (err.response) {
@@ -146,7 +147,11 @@ function Profile() {
           )}
         </div>
         <div className="mb-4">
-          <button className="btn btn-outline text-sm py-2 w-28">
+          <button
+            type="button"
+            className="btn btn-outline text-sm py-2 w-28"
+            onClick={() => setIsOpen(true)}
+          >
             Alterar Senha
           </button>
         </div>
@@ -159,6 +164,7 @@ function Profile() {
       <div className="w-2/5 hidden md:block">
         <img src={designer} alt="" className="mx-auto" />
       </div>
+      <ChangePasswordDialog isOpen={isOpen} closeDialog={closeDialog} />
     </div>
   );
 }

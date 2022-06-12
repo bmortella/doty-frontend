@@ -1,17 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import shopping from "../../assets/img/shopping.svg";
 import technologies from "../../assets/img/technologies.svg";
 import location from "../../assets/img/location.svg";
 
 function TermsOfUse() {
+  const { id } = useParams();
   const imgs = [shopping, technologies, location];
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
   function next() {
     if (index + 1 === 3) {
-      navigate("/adopter/form");
+      navigate(`/adopter/${id}/form`);
     }
     setIndex(index + 1);
   }
@@ -29,7 +30,7 @@ function TermsOfUse() {
           Antes de começar, é importante que você saiba que:
         </div>
         <div className="flex flex-col items-center">
-          <div className="mb-5">
+          <div className="mb-5 mt-5">
             <img src={imgs[index]} alt="" />
           </div>
           <div className="w-11/12">{allFrases[index]}</div>

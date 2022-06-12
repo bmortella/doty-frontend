@@ -29,12 +29,12 @@ function Welcome() {
         <img src={success} className="mb-10 mt-10 mx-auto lg:w-80" alt="" />
         <h2 className="font-semibold text-2xl text-secondary-blue">
           Oba! Ficamos muito felizes com o seu interesse
-          {authContext.loggedInUser.user.role === "guardian"
+          {authContext.loggedInUser.user?.role === "guardian"
             ? "."
             : " em adotar! "}
         </h2>
         <p className="text-base mt-4 font-normal lg:px-10">
-          {authContext.loggedInUser.user.role === "guardian"
+          {authContext.loggedInUser.user?.role === "guardian"
             ? "Nós da Doty queremos que você tenha a melhor experiência de adoção possível. Portanto, nosso processo consiste em três etapas, tudo bem?"
             : "Nós da Doty levamos muito a sério a adoção responsável. Por isso, precisamos confirmar algumas informações e solicitar alguns dos seus dados, tudo bem? Fique tranquilo! Isso deve tomar menos de 5 minutos e seus dados estarão em segurança."}
         </p>

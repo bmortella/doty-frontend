@@ -4,6 +4,8 @@ const AuthContext = createContext({ token: "", user: {} });
 
 function AuthContextComponent(props) {
   const [loggedInUser, setLoggedInUser] = useState({ token: "", user: {} });
+  const [guardianForm, setGuardianForm] = useState(null)
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

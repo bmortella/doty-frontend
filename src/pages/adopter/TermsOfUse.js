@@ -1,17 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import shopping from "../../assets/img/shopping.svg";
 import technologies from "../../assets/img/technologies.svg";
 import location from "../../assets/img/location.svg";
 
 function TermsOfUse() {
+  const { id } = useParams();
   const imgs = [shopping, technologies, location];
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
   function next() {
     if (index + 1 === 3) {
-      navigate("/adopter/terms/form");
+      navigate(`/adopter/${id}/form`);
     }
     setIndex(index + 1);
   }

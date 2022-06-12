@@ -42,9 +42,14 @@ function App() {
           }
         />
 
+        {/* Fluxo do adotante */}
         <Route path="/guardian/:id" element={<GuardianPage />} />
-        <Route path="/adopter/terms" element={<TermsOfUse />} />
-        <Route path="/adopter/terms/form" element={<FormForAdoption />} />
+        <Route path="/adopter/:id/welcome" element={<Welcome />} />
+        <Route path="/adopter/:id/terms" element={<TermsOfUse />}/>
+        <Route path="/adopter/:id/form" element={<FormForAdoption />}/>
+        {/* <Route path="/adopter/:id/singup" />
+        <Route path="/adopter/:id/login" /> */}
+
       </Routes>
     </AuthContextComponent>
   );

@@ -1,34 +1,33 @@
 import React from "react";
 import { ReactDOM } from "react-dom/client";
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { setLocale } from "yup";
 import { AuthContext } from "../../contexts/authContext";
 import api from "../../apis/api";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import success from "../../assets/img/success.svg";
-import instagramPost from "../../assets/img/instagram-post.svg";
-import location from "../../assets/img/location.svg";
-import selfie from "../../assets/img/selfie.svg";
-import frame1 from "../../assets/img/Frame 1.svg";
-import noCommentsYet from "../../assets/img/No comments yet.svg";
-import frame178 from "../../assets/img/Frame 178.svg";
-import designer from "../../assets/img/designer.svg";
-import Coding from "../../assets/img/Coding.svg";
+// import success from "../../assets/img/success.svg";
+// import instagramPost from "../../assets/img/instagram-post.svg";
+// import location from "../../assets/img/location.svg";
+// import selfie from "../../assets/img/selfie.svg";
+// import frame1 from "../../assets/img/Frame 1.svg";
+// import noCommentsYet from "../../assets/img/No comments yet.svg";
+// import frame178 from "../../assets/img/Frame 178.svg";
+// import designer from "../../assets/img/designer.svg";
+// import Coding from "../../assets/img/Coding.svg";
 
 function FormForAdoption() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const [dogosName, setDogosName] = useState({
-    name: "",
-  });
+  const [dogosName, setDogosName] = useState([]);
   const authContext = useContext(AuthContext);
 
   useEffect(() => {
     async function getDogosName() {
       try {
-        const response = await api.get(`/`);
+        const response = await api.get(`/pets/${id}`);
         setDogosName(response.data);
       } catch (err) {
         console.error(err);
@@ -67,14 +66,8 @@ function FormForAdoption() {
 
   async function onSubmit(data) {
     try {
-      const response = await api.post("/signup", data);
-      authContext.setLoggedInUser({ ...response.data });
-      localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify({ ...response.data })
-      );
-
-      navigate("/", { replace: true }); // TODO: navegar para termos
+      authContext.setGuardianForm(data)
+      navigate(`/adopter/${id}/signup`, { replace: true }); // TODO: navegar para termos
     } catch (err) {
       // Se ha response, a API retornou uma mensagem.
       if (err.response) {
@@ -99,7 +92,7 @@ function FormForAdoption() {
     <div>
       <div className="flex flex-col text-center">
         <form
-          onSubmit={handleSubmit()}
+          onSubmit={handleSubmit(onSubmit)}
           className="mt-6 flex flex-col"
           id="signup"
         >
@@ -113,13 +106,18 @@ function FormForAdoption() {
             <p className="text-base font-normal">
               Me conte qual animal você quer como melhor amigo
             </p>
-            <input
+            <select
               type="text"
               id="name"
               placeholder="Responda aqui"
               className="text-sm text-neutral focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 border-0 border-b-2 border-gray-300"
+              defaultValue=""
               {...register("name")}
-            />
+            >
+              {dogosName.map((dogo) => (
+                <option value={dogo.name}>{dogo.name}</option>
+              ))}
+            </select>
             {errors.name?.message && (
               <p className="mt-2 text-sm text-error">{errors.name.message}</p>
             )}

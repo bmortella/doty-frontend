@@ -4,7 +4,7 @@ const AuthContext = createContext({ token: "", user: {} });
 
 function AuthContextComponent(props) {
   const [loggedInUser, setLoggedInUser] = useState({ token: "", user: {} });
-  const [guardianForm, setGuardianForm] = useState(null)
+  const [adoptionForm, setAdoptionForm] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,14 @@ function AuthContextComponent(props) {
 
   return (
     <AuthContext.Provider
-      value={{ loggedInUser, setLoggedInUser, loading, handleLogout }}
+      value={{
+        adoptionForm,
+        setAdoptionForm,
+        loggedInUser,
+        setLoggedInUser,
+        loading,
+        handleLogout,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

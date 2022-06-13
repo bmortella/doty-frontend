@@ -12,6 +12,7 @@ import TermsOfUse from "../pages/adopter/TermsOfUse";
 import FormForAdoption from "../pages/adopter/FormForAdoption";
 
 import { AuthContextComponent } from "../contexts/authContext";
+import LoginPage from "../pages/LoginPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute component={Home} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/loginpage" element={<LoginPage />} />
 
         {/* COMMON PROTECTED */}
         <Route

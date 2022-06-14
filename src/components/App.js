@@ -13,6 +13,7 @@ import Profile from "../pages/dashboard/common/Profile";
 import Pets from "../pages/dashboard/guardian/Pets";
 import TermsOfUse from "../pages/adopter/TermsOfUse";
 import FormForAdoption from "../pages/adopter/FormForAdoption";
+import SignUpPage from "../pages/SignUpPage";
 
 import { AuthContextComponent } from "../contexts/authContext";
 import LoginPage from "../pages/LoginPage";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/loginpage" element={<LoginPage />} />
+        <Route path="/signuppage" element={<SignUpPage />} />
 
         {/* COMMON PROTECTED */}
         <Route

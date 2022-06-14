@@ -25,7 +25,7 @@ function LoginPage() {
     event.preventDefault();
 
     try {
-      const response = await api.post("/login", {...state, role:"adopter"});
+      const response = await api.post("/login", { ...state, role: "adopter" });
       console.log(response);
 
       authContext.setLoggedInUser({ ...response.data });
@@ -51,7 +51,10 @@ function LoginPage() {
         </p>
       </div>
       <div className="flex flex-col py-8 px-10 md:bg-slate-900 md:w-screen md:flex-row md:justify-end lg:justify-center lg:border lg:rounded-sm relative">
-        <form onSubmit={handleSubmit} className="bg-white md:rounded-lg md:p-5 md:h-fit md:flex md:flex-col md:mt-20 lg:p-10 lg:rounded-lg xl:p-20">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white md:rounded-lg md:p-5 md:h-fit md:flex md:flex-col md:mt-20 lg:p-10 lg:rounded-lg xl:p-20"
+        >
           <div className="mb-10 flex justify-center">
             <img src={doty} alt="Logo da DOTY" />
           </div>
@@ -92,7 +95,7 @@ function LoginPage() {
           <div className="flex flex-row mt-8 text-sm justify-center md:pb-5">
             <div>Novo por aqui?</div>
             <Link
-              to="/signup"
+              to="/signuppage"
               className="font-extrabold pl-2 text-secondary-blue"
             >
               Crie a sua conta

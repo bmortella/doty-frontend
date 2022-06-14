@@ -8,14 +8,14 @@ import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
-import TermsOfUse from "../pages/TermsOfUse";
 import StackedLayout from "../components/StackedLayout";
 import Profile from "../pages/dashboard/common/Profile";
 import Pets from "../pages/dashboard/guardian/Pets";
-
-// TODO: fix import hell
+import TermsOfUse from "../pages/adopter/TermsOfUse";
+import FormForAdoption from "../pages/adopter/FormForAdoption2";
 
 import { AuthContextComponent } from "../contexts/authContext";
+import LoginPage from "../pages/LoginPage";
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute component={Home} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/loginpage" element={<LoginPage />} />
 
         {/* COMMON PROTECTED */}
         <Route
@@ -56,8 +57,13 @@ function App() {
           <Route path="adopters" element={<p>Ola Mundo!</p>} />
         </Route>
 
-        <Route path="/guardian/terms" element={<TermsOfUse />} />
+        {/* Fluxo do adotante */}
         <Route path="/guardian/:id" element={<GuardianPage />} />
+        <Route path="/adopter/:id/welcome" element={<Welcome />} />
+        <Route path="/adopter/:id/terms" element={<TermsOfUse />} />
+        <Route path="/adopter/:id/form" element={<FormForAdoption />} />
+        {/* <Route path="/adopter/:id/singup" />
+        <Route path="/adopter/:id/login" /> */}
       </Routes>
     </AuthContextComponent>
   );

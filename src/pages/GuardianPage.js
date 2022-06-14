@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { ArrowRight, Mail, Phone, UserPlus } from "react-feather";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import api from "../apis/api";
 
 function GuardianPage() {
@@ -23,6 +23,10 @@ function GuardianPage() {
     }
     getGuardian();
   }, []);
+  const navigate = useNavigate();
+  function next(){
+    navigate(`/adopter/${id}/welcome`)
+  }
   return (
     <div className="flex flex-col bg-secondary-white">
       <div className="bg-primary h-46 text-white flex flex-col lg:absolute lg:w-full items-center justify-around py-2 sm:py-4">
@@ -90,7 +94,7 @@ function GuardianPage() {
               alguns dos seus dados, tudo bem? Fique tranquilo! Isso deve tomar
               menos de 5 minutos e seus dados estarão em segurança.
             </div>
-            <button className="bg-primary rounded text-white text-lg py-3 px-6 my-6 w-3/5">
+            <button className="bg-primary rounded text-white text-lg py-3 px-6 my-6 w-3/5" onClick={() => next()}>
               Continuar
             </button>
           </div>

@@ -8,6 +8,9 @@ import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import SignupConclusion from "../pages/guardian/SignupConclusion";
 import ProtectedRoute from "../pages/auth/ProtectedRoute";
 import GuardianPage from "../pages/GuardianPage";
+import StackedLayout from "../components/StackedLayout";
+import Profile from "../pages/dashboard/common/Profile";
+import Pets from "../pages/dashboard/guardian/Pets";
 import TermsOfUse from "../pages/adopter/TermsOfUse";
 import FormForAdoption from "../pages/adopter/FormForAdoption2";
 
@@ -43,6 +46,16 @@ function App() {
             <ProtectedRoute component={SignupConclusion} role="guardian" />
           }
         />
+
+        <Route
+          path="/guardian/dashboard"
+          element={<ProtectedRoute component={StackedLayout} role="guardian" />}
+        >
+          <Route path="" element={<p>Home</p>} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="pets" element={<Pets />} />
+          <Route path="adopters" element={<p>Ola Mundo!</p>} />
+        </Route>
 
         {/* Fluxo do adotante */}
         <Route path="/guardian/:id" element={<GuardianPage />} />

@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-function SelectForm(props) {
+function InputForm(props) {
   const schema = yup
     .object({
       [props.name]: yup.string().required("Este campo é obrigatório"),
@@ -33,24 +33,16 @@ function SelectForm(props) {
         id="selectForm"
       >
         <div className="mt-6">
-          <select
+          <input
             type="text"
             id={props.name}
             placeholder="Responda aqui"
             className="block py-2.5 px-0 w-full text-sm text-neutral border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0"
-            defaultValue=""
             {...register(props.name)}
-          >
-            <option value=""></option>
-            {props.options.map((item) => (
-              <option value={item._id} key={item._id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
+          />
           {errors[props.name]?.message && (
             <p className="mt-2 text-sm text-error">
-              {errors[props.name]?.message}
+              {errors[props.name].message}
             </p>
           )}
         </div>
@@ -76,4 +68,4 @@ function SelectForm(props) {
   );
 }
 
-export default SelectForm;
+export default InputForm;

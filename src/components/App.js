@@ -12,7 +12,7 @@ import StackedLayout from "../components/StackedLayout";
 import Profile from "../pages/dashboard/common/Profile";
 import Pets from "../pages/dashboard/guardian/Pets";
 import TermsOfUse from "../pages/adopter/TermsOfUse";
-import FormForAdoption from "../pages/adopter/FormForAdoption2";
+import FormForAdoption from "../pages/adopter/FormForAdoption";
 
 import { AuthContextComponent } from "../contexts/authContext";
 import LoginPage from "../pages/LoginPage";

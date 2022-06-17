@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Signup from "../pages/auth/Signup";
-import Login from "../pages/auth/Login";
+// import Login from "../pages/auth/Login";
 import Welcome from "../pages/Welcome";
 import WelcomeRegisterPet from "../pages/guardian/WelcomeRegisterPet";
 import SignupConclusion from "../pages/guardian/SignupConclusion";
@@ -25,7 +25,7 @@ function App() {
         {/* COMMON ROUTES */}
         <Route path="/" element={<ProtectedRoute component={Home} />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/loginpage" element={<LoginPage />} />
         <Route path="/signuppage" element={<SignUpPage />} />
 

@@ -16,7 +16,7 @@ function LoginPage() {
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const { id } = useParams();
   useEffect(() => {
-    console.log(authContext)
+    console.log(authContext);
     if (!authContext.adoptionForm) {
       navigate(`/guardian/${id}`);
     }
@@ -40,7 +40,7 @@ function LoginPage() {
       );
       setErrors({ password: "", email: "" });
       setHasSignedUp(true);
-      authContext.setAdoptionForm(null)
+      authContext.setAdoptionForm(null);
     } catch (err) {
       console.error(err.response);
       setErrors({ ...err.response.data.errors });

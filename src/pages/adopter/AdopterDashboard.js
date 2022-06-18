@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { useEffect, useParams } from "react-router-dom";
-import api from "../apis/api";
+import React, {
+  useState,
+  useEffect,
+  navigation,
+  authContext,
+  userNavigation,
+} from "react";
+import "../../assets/styles/background.css";
+import { useParams } from "react-router-dom";
+import api from "../../apis/api";
 
 function AdopterDashboard() {
   const { id } = useParams();
@@ -20,28 +27,31 @@ function AdopterDashboard() {
     }
     getAdopter();
   }, []);
+
   return (
-    <div>
-      <div>
-        <div>
+    <div className="flex flex-col bg-primary h-screen">
+      <div className="  text-white">
+        <div className="flex flex-row justify-evenly text-[32px] mb-14">
           <div>DOTY</div>
-          <div>Notificação + perfil</div>
+          <div>Ntf + perfil</div>
         </div>
-        <div>
-          <div>Olá, **Nome da pessoa**</div>
-          <div>
-            Filtro do animal
-            <div>Nome do animal</div>
+        <div className="flex flex-row justify-evenly mb-9">
+          <div className="text-3xl">Olá, **1ºNome da pessoa**!</div>
+          <div className="text-[14px]">
+            Nome do animal
             <div>Menu dropdown</div>
           </div>
         </div>
       </div>
-      <div>
+      <div className="flex flex-col border-2 bg-white rounded-lg mx-2 text-[14px] px-5 py-6">
         Formulário com as infos dos processos
-        <div>Seu processo: + barrinha de progresso</div>
-        <div>Formulários + status tudo como dropdown</div>
-        <div>Entrevista + status tudo com dropdown</div>
-        <div>Visita e Retirada + status tudo com dropdown</div>
+        <div>Seu processo: </div>
+        <div>barrinha de progresso</div>
+        <div className="mt-10">
+          <div className="mb-10">Formulários + status tudo como dropdown</div>
+          <div className="mb-10">Entrevista + status tudo com dropdown</div>
+          <div className="mb-10">Visita e Retirada + status tudo com dropdown</div>
+        </div>
       </div>
     </div>
   );

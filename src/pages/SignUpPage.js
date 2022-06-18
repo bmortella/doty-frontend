@@ -14,7 +14,7 @@ function SignUpPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    console.log(authContext)
+    console.log(authContext);
     if (!authContext.adoptionForm) {
       navigate(`/guardian/${id}`);
     }
@@ -60,6 +60,7 @@ function SignUpPage() {
     try {
       delete data.confirmPassword;
       data.role = "adopter";
+      data.adoptionForm = authContext.adoptionForm;
       const response = await api.post("/signup", data);
       authContext.setLoggedInUser({ ...response.data });
       localStorage.setItem(
@@ -67,7 +68,7 @@ function SignUpPage() {
         JSON.stringify({ ...response.data })
       );
       setHasSignedUp(true);
-      authContext.setAdoptionForm(null)
+      authContext.setAdoptionForm(null);
     } catch (err) {
       // Se ha response, a API retornou uma mensagem.
       if (err.response) {

@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import api from "../apis/api";
 import { AuthContext } from "../contexts/authContext";
 import doty from "../assets/img/Doty.svg";
-import checkCircle from "../assets/img/check-circle.svg";
+import { CheckCircle } from "react-feather";
 
 function LoginPage() {
   const authContext = useContext(AuthContext);
@@ -12,11 +12,15 @@ function LoginPage() {
     email: null,
     password: null,
   });
-  // const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const [hasSignedUp, setHasSignedUp] = useState(false);
-
+  const { id } = useParams();
+  useEffect(() => {
+    console.log(authContext)
+    if (!authContext.adoptionForm) {
+      navigate(`/guardian/${id}`);
+    }
+  }, []);
   function handleChange(event) {
     setState({
       ...state,
@@ -29,7 +33,6 @@ function LoginPage() {
     try {
       const response = await api.post("/login", { ...state, role: "adopter" });
       console.log(response);
-      console.log("opa ta funfando");
       authContext.setLoggedInUser({ ...response.data });
       localStorage.setItem(
         "loggedInUser",
@@ -37,6 +40,7 @@ function LoginPage() {
       );
       setErrors({ password: "", email: "" });
       setHasSignedUp(true);
+      authContext.setAdoptionForm(null)
     } catch (err) {
       console.error(err.response);
       setErrors({ ...err.response.data.errors });
@@ -46,7 +50,7 @@ function LoginPage() {
     return (
       <div className="flex flex-col md:flex md:flex-row h-screen md:bg-white">
         <div className="hidden items-start px-3 md:bg-white md:flex md:flex-col md:justify-center md:mb-10 lg:text-3xl text-secondary-blue text-2xl font-bold">
-          Vocês está quase lá...
+          Você está quase lá...
           <p className="text-gray-700 mt-5 text-base font-normal lg:text-lg">
             Para concluir a sua candidatura e acompanhar todo o processo de
             adoção, solicitamos que entre ou crie sua conta.
@@ -97,7 +101,7 @@ function LoginPage() {
             <div className="flex flex-row mt-8 text-sm justify-center md:pb-5">
               <div>Novo por aqui?</div>
               <Link
-                to="/signuppage"
+                to={`/adopter/${id}/signup`}
                 className="font-extrabold pl-2 text-secondary-blue"
               >
                 Crie a sua conta
@@ -106,7 +110,7 @@ function LoginPage() {
           </form>
         </div>
         <div className="flex flex-col items-center mt-5 px-3 text-secondary-blue text-xl font-bold md:hidden">
-          Vocês está quase lá...
+          Você está quase lá...
           <p className="text-gray-700 mt-5 text-base font-normal">
             Para concluir a sua candidatura e acompanhar todo o processo de
             adoção, solicitamos que entre ou crie sua conta.
@@ -116,15 +120,15 @@ function LoginPage() {
     );
   }
   return (
-    <div className="flex flex-row bg-secondary-blue h-screen justify-center relative">
-      <form className="bg-white rounded-lg flex flex-col items-center justify-center h-4/5 mt-12 md:w-3/5 lg:text-2xl">
-        <img src={checkCircle} alt="Simbolo de confirmação" className="mb-3" />
-        <div className="text-2xl lg:text-4xl font-bold text-[#219653] mb-3">Oba!</div>
-        <p className="mb-3">O seu formulário foi enviado.</p>
-        <button className="w-2/7 text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mx-2 mb-2 focus:outline-none">
+    <div className="flex flex-col bg-secondary-blue h-screen justify-center items-center">
+      <div className="bg-white rounded-lg flex flex-col items-center justify-center max-w-md py-8 px-[22px] md:w-3/5">
+        <CheckCircle size={41} className="mb-5 text-[#219653]" />
+        <div className="text-[32px] font-bold text-[#219653]">Oba!</div>
+        <p className="mb-4 mt-2 text-center">O seu formulário foi enviado.</p>
+        <button className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none">
           Ir para a página inicial
         </button>
-      </form>
+      </div>
     </div>
   );
 }

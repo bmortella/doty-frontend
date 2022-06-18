@@ -25,9 +25,6 @@ function App() {
         {/* COMMON ROUTES */}
         <Route path="/" element={<ProtectedRoute component={Home} />} />
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="/loginpage" element={<LoginPage />} />
-        <Route path="/signuppage" element={<SignUpPage />} />
 
         {/* COMMON PROTECTED */}
         <Route
@@ -64,8 +61,8 @@ function App() {
         <Route path="/adopter/:id/welcome" element={<Welcome />} />
         <Route path="/adopter/:id/terms" element={<TermsOfUse />} />
         <Route path="/adopter/:id/form" element={<FormForAdoption />} />
-        {/* <Route path="/adopter/:id/singup" />
-        <Route path="/adopter/:id/login" /> */}
+        <Route path="/adopter/:id/signup" element={<SignUpPage />} />
+        <Route path="/adopter/:id/login" element={<LoginPage />} />
       </Routes>
     </AuthContextComponent>
   );

@@ -143,8 +143,7 @@ function FormForAdoption() {
     setFormData({ ...formData, ...data });
     if (index + 1 >= forms.length) {
       authContext.setAdoptionForm(formData);
-      console.log(formData);
-      navigate("/loginpage");
+      navigate(`/adopter/${id}/login`);
     }
     setIndex(index + 1);
   }

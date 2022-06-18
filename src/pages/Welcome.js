@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext } from "react";
 
 import { AuthContext } from "../contexts/authContext";
@@ -11,6 +11,7 @@ import BannerLayout from "../components/BannerLayout";
 
 function Welcome() {
   const authContext = useContext(AuthContext);
+  const {id} = useParams();
 
   return (
     <BannerLayout.Layout>
@@ -45,7 +46,7 @@ function Welcome() {
           <ArrowRight />
           <p>Visita e Retirada</p>
         </div>
-        <Link to="/login" className="btn block lg:w-80 mt-10">
+        <Link to={`/adopter/${id}/form`} className="btn block lg:w-80 mt-10">
           Continuar
         </Link>
       </BannerLayout.Content>

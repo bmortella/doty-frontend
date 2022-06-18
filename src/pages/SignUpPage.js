@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../contexts/authContext";
 import api from "../apis/api";
 import { useForm } from "react-hook-form";
@@ -7,12 +7,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { setLocale } from "yup";
 import * as yup from "yup";
 import doty from "../assets/img/Doty.svg";
-import checkCircle from "../assets/img/check-circle.svg";
+import { CheckCircle } from "react-feather";
 
 function SignUpPage() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const { id } = useParams();
+  useEffect(() => {
+    console.log(authContext)
+    if (!authContext.adoptionForm) {
+      navigate(`/guardian/${id}`);
+    }
+  }, []);
   setLocale({
     mixed: { required: "Campo obrigatório" },
     string: {
@@ -23,7 +29,7 @@ function SignUpPage() {
 
   const schema = yup
     .object({
-      name: yup.string().required().min(2).max(24),
+      name: yup.string().required().min(2).max(48),
       email: yup.string().required().email("Digite um email válido"),
       phone: yup
         .string()
@@ -53,7 +59,7 @@ function SignUpPage() {
   async function onSubmit(data) {
     try {
       delete data.confirmPassword;
-
+      data.role = "adopter";
       const response = await api.post("/signup", data);
       authContext.setLoggedInUser({ ...response.data });
       localStorage.setItem(
@@ -61,7 +67,7 @@ function SignUpPage() {
         JSON.stringify({ ...response.data })
       );
       setHasSignedUp(true);
-      navigate("/welcome", { replace: true }); // TODO: navegar para termos
+      authContext.setAdoptionForm(null)
     } catch (err) {
       // Se ha response, a API retornou uma mensagem.
       if (err.response) {
@@ -217,7 +223,7 @@ function SignUpPage() {
               <span>
                 Já tem uma conta?{" "}
                 <Link
-                  to="/loginpage"
+                  to={`/adopter/${id}/login`}
                   className="text-hyperlink-blue hover:underline"
                 >
                   Entrar
@@ -230,19 +236,17 @@ function SignUpPage() {
     );
   }
   return (
-    <div className="flex flex-row bg-secondary-blue h-screen justify-center relative">
-      <form className="bg-white rounded-lg flex flex-col items-center justify-center h-4/5 mt-12 md:w-3/5 lg:text-2xl">
-        <img src={checkCircle} alt="Simbolo de confirmação" className="mb-3" />
-        <div className="text-2xl lg:text-4xl font-bold text-[#219653] mb-3">
-          Oba!
-        </div>
-        <p className="mb-3">
+    <div className="flex flex-col bg-secondary-blue h-screen justify-center items-center">
+      <div className="bg-white rounded-lg flex flex-col items-center justify-center max-w-md py-8 px-[22px] md:w-3/5">
+        <CheckCircle size={41} className="mb-5 text-[#219653]" />
+        <div className="text-[32px] font-bold text-[#219653]">Oba!</div>
+        <p className="mb-4 mt-2 text-center">
           O seu formulário foi enviado e a sua conta foi criada.
         </p>
-        <button className="w-2/7 text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 mx-2 mb-2 focus:outline-none">
+        <button className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none">
           Ir para a página inicial
         </button>
-      </form>
+      </div>
     </div>
   );
 }

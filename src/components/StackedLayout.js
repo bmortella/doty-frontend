@@ -6,15 +6,15 @@ import { AuthContext } from "../contexts/authContext";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
-// import { Link as LinkIcon } from "react-feather";
+import { Link as LinkIcon } from "react-feather";
 
 import "../assets/styles/background.css";
 
-const navigation = [
-  { name: "Página Inicial", href: "", end: true },
-  { name: "Animais Cadastrados", href: "pets", end: false },
-  { name: "Adotantes", href: "adopters", end: false },
-];
+// const navigation = [
+//   { name: "Página Inicial", href: "", end: true },
+//   { name: "Animais Cadastrados", href: "pets", end: false },
+//   { name: "Adotantes", href: "adopters", end: false },
+// ];
 
 const userNavigation = [
   { name: "Meu Perfil", href: "dashboard/profile" },
@@ -25,7 +25,9 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function StackedLayout() {
+export default function StackedLayout(props) {
+  console.log(props);
+
   const authContext = useContext(AuthContext);
   const [title, setTitle] = useState("");
 
@@ -53,7 +55,7 @@ export default function StackedLayout() {
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
-                        {navigation.map((item) => (
+                        {props.props.navigation.map((item) => (
                           <NavLink
                             end={item.end}
                             key={item.name}
@@ -157,7 +159,7 @@ export default function StackedLayout() {
 
               <Disclosure.Panel className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                  {navigation.map((item) => (
+                  {props.props.navigation.map((item) => (
                     <Disclosure.Button
                       key={item.name}
                       as="a"
@@ -237,13 +239,13 @@ export default function StackedLayout() {
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between">
               <h1 className="text-3xl font-bold text-white">{title}</h1>
-              {/* <button
+              <button
                 className="btn font-normal text-sm hidden md:w-80 md:inline-flex justify-center items-center bg-secondary-blue"
                 onClick={copyLink}
               >
                 <LinkIcon className="mr-2" size={20} />
                 Copiar link do processo de adoção
-              </button> */}
+              </button>
             </div>
           </div>
         </header>

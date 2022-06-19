@@ -48,7 +48,19 @@ function App() {
 
         <Route
           path="/guardian/dashboard"
-          element={<ProtectedRoute component={StackedLayout} role="guardian" />}
+          element={
+            <ProtectedRoute
+              component={StackedLayout}
+              role="guardian"
+              props={{
+                navigation: [
+                  { name: "Página Inicial", href: "", end: true },
+                  { name: "Animais Cadastrados", href: "pets", end: false },
+                  { name: "Adotantes", href: "adopters", end: false },
+                ],
+              }}
+            />
+          }
         >
           <Route path="" element={<p>Home</p>} />
           <Route path="profile" element={<Profile />} />

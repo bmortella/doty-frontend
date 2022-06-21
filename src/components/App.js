@@ -14,6 +14,7 @@ import Pets from "../pages/dashboard/guardian/Pets";
 import TermsOfUse from "../pages/adopter/TermsOfUse";
 import FormForAdoption from "../pages/adopter/FormForAdoption";
 import SignUpPage from "../pages/SignUpPage";
+import AdopterDashboard from "../pages/adopter/AdopterDashboard";
 
 import { AuthContextComponent } from "../contexts/authContext";
 import LoginPage from "../pages/LoginPage";
@@ -69,12 +70,33 @@ function App() {
         </Route>
 
         {/* Fluxo do adotante */}
+
         <Route path="/guardian/:id" element={<GuardianPage />} />
+
         <Route path="/adopter/:id/welcome" element={<Welcome />} />
+
         <Route path="/adopter/:id/terms" element={<TermsOfUse />} />
+
         <Route path="/adopter/:id/form" element={<FormForAdoption />} />
+
         <Route path="/adopter/:id/signup" element={<SignUpPage />} />
+
         <Route path="/adopter/:id/login" element={<LoginPage />} />
+
+        <Route
+          path="adopter/dashboard"
+          element={
+            <ProtectedRoute
+              component={StackedLayout}
+              role="adopter"
+              props={{
+                navigation: [],
+              }}
+            ></ProtectedRoute>
+          }
+        >
+          <Route path="" element={<AdopterDashboard/>} />
+        </Route>
       </Routes>
     </AuthContextComponent>
   );

@@ -16,10 +16,11 @@ function LoginPage() {
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const { id } = useParams();
   useEffect(() => {
-    console.log(authContext)
+    console.log(authContext);
     if (!authContext.adoptionForm) {
       navigate(`/guardian/${id}`);
     }
+    // POSSIVEL INSERÇAO DO ADOPTION FORM AQUI
   }, []);
   function handleChange(event) {
     setState({
@@ -33,6 +34,7 @@ function LoginPage() {
     try {
       const response = await api.post("/login", { ...state, role: "adopter" });
       console.log(response);
+      // console.log(authContext.adoptionForm);
       authContext.setLoggedInUser({ ...response.data });
       localStorage.setItem(
         "loggedInUser",
@@ -40,7 +42,7 @@ function LoginPage() {
       );
       setErrors({ password: "", email: "" });
       setHasSignedUp(true);
-      authContext.setAdoptionForm(null)
+      authContext.setAdoptionForm(null);
     } catch (err) {
       console.error(err.response);
       setErrors({ ...err.response.data.errors });
@@ -119,6 +121,7 @@ function LoginPage() {
       </div>
     );
   }
+  console.log("fora do try:", authContext.adoptionForm);
   return (
     <div className="flex flex-col bg-secondary-blue h-screen justify-center items-center">
       <div className="bg-white rounded-lg flex flex-col items-center justify-center max-w-md py-8 px-[22px] md:w-3/5">

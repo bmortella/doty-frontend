@@ -1,0 +1,5 @@
+/* Hack para aplicar background na página inteira do dashboard. Valeu Henrique!! */
+
+body {
+  background-color: #f9f8ff;
+}

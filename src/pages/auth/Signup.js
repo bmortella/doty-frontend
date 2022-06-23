@@ -13,7 +13,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-function Signup(props) {
+function Signup() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function Signup(props) {
   const schema = yup
     .object({
       name: yup.string().required().min(2).max(24),
-      email: yup.string().required().email("Digite um email válido"),
+      email: yup.string().required().email("Digite um e-mail válido"),
       phone: yup
         .string()
         .required()
@@ -65,7 +65,7 @@ function Signup(props) {
         JSON.stringify({ ...response.data })
       );
 
-      //navigate("/login", {replace: true}); // TODO: navegar para termos
+      navigate("/welcome", { replace: true }); // TODO: navegar para termos
     } catch (err) {
       // Se ha response, a API retornou uma mensagem.
       if (err.response) {

@@ -23,8 +23,7 @@ function App() {
   return (
     <AuthContextComponent>
       <Routes>
-        {/* COMMON ROUTES */}
-        <Route path="/" element={<ProtectedRoute component={Home} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* COMMON PROTECTED */}

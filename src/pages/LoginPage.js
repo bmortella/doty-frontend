@@ -128,7 +128,10 @@ function LoginPage() {
         <CheckCircle size={41} className="mb-5 text-[#219653]" />
         <div className="text-[32px] font-bold text-[#219653]">Oba!</div>
         <p className="mb-4 mt-2 text-center">O seu formulário foi enviado.</p>
-        <button className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none">
+        <button
+          className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none"
+          onClick={() => navigate("/adopter/dashboard")}
+        >
           Ir para a página inicial
         </button>
       </div>

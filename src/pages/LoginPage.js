@@ -130,7 +130,7 @@ function LoginPage() {
         <p className="mb-4 mt-2 text-center">O seu formulário foi enviado.</p>
         <button
           className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none"
-          onClick={() => navigate("/adopter/dashboard")}
+          onClick={() => navigate("/adopter/dashboard/")}
         >
           Ir para a página inicial
         </button>

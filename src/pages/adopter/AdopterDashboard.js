@@ -21,19 +21,16 @@ function AdopterDashboard() {
   const authContext = useContext(AuthContext);
   const [progressoBarrinha, setProgressoBarrinha] = useState(0);
   const { id } = useParams();
-  const [adopterInfo, setAdopterInfo] = useState({
-    everHadAPet: "",
-    houseType: "",
-    petAccess: "",
-    timeSpentAtHome: "",
-  });
+  const [adopterInfo, setAdopterInfo] = useState({});
 
   useEffect(() => {
     async function getAdopter() {
       try {
-        const response = await api.get(`/adoptionProcess/process/${id}`);
+        const response = await api.get(
+          `/adoptionProcess/process/${authContext.loggedInUser.user._id}`
+        );
         setAdopterInfo(response.data);
-        console.log(response)
+        console.log(response);
       } catch (err) {
         console.error(err);
       }
@@ -87,12 +84,30 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-[#3B56AA] font-[600]">
-                  Animal escolhido: <p className="text-gray-600 font-[400] text-sm">{adopterInfo.petId}</p>
-                  Se já teve animais e quantos: <p className="text-gray-600 font-[400] text-sm">{adopterInfo.process[0].everHadAPet}</p>
-                  Ambiente onde o animal irá morar: <p className="text-gray-600 font-[400] text-sm">{adopterInfo.process[0].houseType}</p>
-                  Espaço do local: <p className="text-gray-600 font-[400] text-sm">{adopterInfo.process[0].petAccess}</p>
-                  Horas que passa em casa: <p className="text-gray-600 font-[400] text-sm">{adopterInfo.process[0].timeSpentAtHome}</p>
-                  Acesso do animal no local: <p className="text-gray-600 font-[400] text-sm">{adopterInfo.process[0].petAccess}</p>
+                  Animal escolhido:{" "}
+                  <p className="text-gray-600 font-[400] text-sm">
+                    {adopterInfo?.petId}
+                  </p>
+                  Se já teve animais e quantos:{" "}
+                  <p className="text-gray-600 font-[400] text-sm">
+                    {adopterInfo?.process?.["0"].everHadAPet}
+                  </p>
+                  Ambiente onde o animal irá morar:{" "}
+                  <p className="text-gray-600 font-[400] text-sm">
+                    {adopterInfo?.process?.["0"].houseType}
+                  </p>
+                  Espaço do local:{" "}
+                  <p className="text-gray-600 font-[400] text-sm">
+                    {adopterInfo?.process?.["0"].petAccess}
+                  </p>
+                  Horas que passa em casa:{" "}
+                  <p className="text-gray-600 font-[400] text-sm">
+                    {adopterInfo?.process?.["0"].timeSpentAtHome}
+                  </p>
+                  Acesso do animal no local:{" "}
+                  <p className="text-gray-600 font-[400] text-sm">
+                    {adopterInfo?.process?.["0"].petAccess}
+                  </p>
                 </Disclosure.Panel>
               </Disclosure>
             </div>
@@ -107,7 +122,7 @@ function AdopterDashboard() {
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
                   <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
                     Selecione o dia e horário de sua preferência para conversar
-                    com a <p>{adopterInfo.guardianId}</p>
+                    com a <p>{adopterInfo?.guardianId}</p>
                     <input
                       className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
                       placeholder="Inserir data no formato DD/MM/AAAA"

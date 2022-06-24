@@ -156,7 +156,7 @@ function GuardianHome() {
                 <td className="px-6 py-4 md:w-8">
                   <div className="flex items-center">
                     <Link
-                      to={process.adopter._id}
+                      to={`adopters/${process.adopter._id}`}
                       className="md:mr-8 text-[#1973E8] font-medium"
                     >
                       Detalhes

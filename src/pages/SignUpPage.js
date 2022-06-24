@@ -86,8 +86,6 @@ function SignUpPage() {
           );
         }
       }
-      // TODO: mostrar popup de erro
-      //console.error(err);
     }
   }
   if (!hasSignedUp) {

@@ -5,7 +5,7 @@ import { AuthContext } from "../../../contexts/authContext";
 
 import api from "../../../apis/api";
 
-import { Edit, Trash2, ArrowLeft, ArrowRight } from "react-feather";
+import { ArrowLeft, ArrowRight } from "react-feather";
 
 const adoptersPerPage = 10;
 
@@ -44,7 +44,7 @@ function Adopters() {
 
   return (
     <>
-      <div className="relative overflow-x-auto rounded-lg mt-7 shadow-sm border border-gray-200">
+      <div className="relative overflow-x-auto rounded-lg shadow-sm border border-gray-200">
         <table className="w-full text-sm text-left text-neutral">
           <thead className="text-xs uppercase bg-gray-50">
             <tr>
@@ -52,43 +52,39 @@ function Adopters() {
                 Nome
               </th>
               <th scope="col" className="px-6 py-3">
-                Sexo
+                NOME DO ANIMAL
               </th>
               <th scope="col" className="px-6 py-3">
-                Porte
+                TELEFONE
               </th>
               <th scope="col" className="px-6 py-3 hidden lg:table-cell">
-                Idade
+                EMAIL
               </th>
               <th scope="col" className="py-3"></th>
             </tr>
           </thead>
           <tbody>
-            {currentTableData.map((pet) => (
+            {currentTableData.map((process) => (
               <tr
                 className="bg-white border-b odd:bg-white even:bg-gray-50"
-                key={pet._id}
+                key={process.adopter._id}
               >
                 <th scope="row" className="px-6 py-4 text-primary">
-                  {pet.name}
+                  {process.adopter.name}
                 </th>
-                <td className="px-6 py-4">{pet.sex}</td>
-                <td className="px-6 py-4">{pet.size}</td>
-                <td className="px-6 py-4 hidden lg:table-cell">{pet.age}</td>
+                <td className="px-6 py-4">{process.pet.name}</td>
+                <td className="px-6 py-4">{process.adopter.phone}</td>
+                <td className="px-6 py-4 hidden lg:table-cell">
+                  {process.adopter.email}
+                </td>
                 <td className="px-6 py-4 md:w-8">
                   <div className="flex items-center">
                     <Link
-                      to={pet._id}
+                      to={process.adopter._id}
                       className="md:mr-8 text-[#1973E8] font-medium"
                     >
                       Detalhes
                     </Link>
-                    <button type="button" className="hidden md:block mr-8">
-                      <Edit className="text-gray-600" />
-                    </button>
-                    <button type="button" className="hidden md:block">
-                      <Trash2 className="text-gray-600" />
-                    </button>
                   </div>
                 </td>
               </tr>

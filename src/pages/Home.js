@@ -1,44 +1,45 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import banner from '../assets/img/bannerimg2.jpg'
-import line from '../assets/img/linesig.jpg'
-import line2 from '../assets/img/line2.png'
-import framebt from '../assets/img/framebt.jpg'
-import avatarft from '../assets/img/avatarft.png'
-import { HomeIcon, ClipboardIcon, UsersIcon } from '@heroicons/react/outline'
-
-
+import { Fragment, useEffect } from "react";
+import { Popover, Transition } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import banner from "../assets/img/bannerimg2.jpg";
+import line from "../assets/img/linesig.jpg";
+import line2 from "../assets/img/line2.png";
+import framebt from "../assets/img/framebt.jpg";
+import avatarft from "../assets/img/avatarft.png";
+import { HomeIcon, ClipboardIcon, UsersIcon } from "@heroicons/react/outline";
 
 const features = [
   {
-    name: '1. Formulário',
+    name: "1. Formulário",
     description:
-      'Verifique todas as respostas do questionário padrão Doty e avalie se o possível adotante é qualificado para o animal em questão. Você pode aprová-lo ou reprová-lo e ele receberá uma notificação automática.',
+      "Verifique todas as respostas do questionário padrão Doty e avalie se o possível adotante é qualificado para o animal em questão. Você pode aprová-lo ou reprová-lo e ele receberá uma notificação automática.",
     icon: ClipboardIcon,
   },
   {
-    name: '2. Entrevista',
+    name: "2. Entrevista",
     description:
-      'Agende um horário para entrevistar os possíveis adotantes aprovados na etapa de formulário para conhecê-los melhor. Após as entrevistas, você pode aprovar o adotante mais qualificado para a etapa final.',
+      "Agende um horário para entrevistar os possíveis adotantes aprovados na etapa de formulário para conhecê-los melhor. Após as entrevistas, você pode aprovar o adotante mais qualificado para a etapa final.",
     icon: UsersIcon,
   },
   {
-    name: '3. Visita e Retirada',
+    name: "3. Visita e Retirada",
     description:
-      'Agende um horário com o adotante escolhido para que ele visite o abrigo, assine documentos e retire o animal. Confirme se a visita ocorreu para finalizar o processo de adoção na plataforma.',
+      "Agende um horário com o adotante escolhido para que ele visite o abrigo, assine documentos e retire o animal. Confirme se a visita ocorreu para finalizar o processo de adoção na plataforma.",
     icon: HomeIcon,
   },
-
-]
+];
 
 const navigation = [
-  { name: 'Sobre nós', href: '#' },
-  { name: 'Como funciona', href: '#' },
-]
+  { name: "Sobre nós", href: "#" },
+  { name: "Como funciona", href: "#" },
+];
 
-export default function Example() {
+export default function Home() {
+  useEffect(() => {
+    document.title = "Doty";
+  }, []);
+
   return (
     <div>
       <div className="relative bg-[#202133] overflow-hidden">
@@ -56,11 +57,15 @@ export default function Example() {
 
             <Popover>
               <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
-                <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
+                <nav
+                  className="relative flex items-center justify-between sm:h-10 lg:justify-start"
+                  aria-label="Global"
+                >
                   <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
-
-                      <span className="text-4xl not-italic font-semibold font-grandstander text-white">DOTY</span>
+                      <span className="text-4xl not-italic font-semibold font-grandstander text-white">
+                        DOTY
+                      </span>
 
                       <div className="-mr-2 flex items-center md:hidden">
                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -72,11 +77,18 @@ export default function Example() {
                   </div>
                   <div className="hidden md:block md:ml-10 md:pr-4 md:space-x-8">
                     {navigation.map((item) => (
-                      <a key={item.name} href={item.href} className="font-poppins font-poppins font-medium text-[#BDBDD5] hover:text-gray-900">
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className="font-poppins font-poppins font-medium text-[#BDBDD5] hover:text-gray-900"
+                      >
                         {item.name}
                       </a>
                     ))}
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    <a
+                      href="#"
+                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                    >
                       Entrar
                     </a>
                   </div>
@@ -98,7 +110,9 @@ export default function Example() {
                 >
                   <div className="rounded-lg shadow-md bg-[#202133] ring-1 ring-black ring-opacity-5 overflow-hidden">
                     <div className="px-5 pt-4 flex items-center justify-between">
-                      <span className="ml-[35px] text-4xl not-italic font-semibold font-grandstander text-white">DOTY</span>
+                      <span className="ml-[35px] text-4xl not-italic font-semibold font-grandstander text-white">
+                        DOTY
+                      </span>
                       <div className="-mr-2">
                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                           <span className="sr-only">Close main menu</span>
@@ -131,11 +145,17 @@ export default function Example() {
             <main className="mt-10 mx-auto max-w-10xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-18">
               <div className="sm:text-center lg:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block xl:inline text-white font-poppins">A plataforma ideal para</span>{' '}
-                  <span className="block text-indigo-600 xl:inline text-[#115e59] font-poppins">otimizar o seu processo de adoção</span>
+                  <span className="block xl:inline text-white font-poppins">
+                    A plataforma ideal para
+                  </span>{" "}
+                  <span className="block text-indigo-600 xl:inline text-[#115e59] font-poppins">
+                    otimizar o seu processo de adoção
+                  </span>
                 </h1>
                 <p className="mt-3 text-base text-white sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Nós levamos a sério a adoção responsável e te ajudamos a organizar os processos de adoção dos seus animais em um só lugar.
+                  Nós levamos a sério a adoção responsável e te ajudamos a
+                  organizar os processos de adoção dos seus animais em um só
+                  lugar.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
@@ -146,13 +166,12 @@ export default function Example() {
                       Comece agora
                     </a>
                   </div>
-
                 </div>
               </div>
             </main>
           </div>
         </div>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 xl:w-1/2" >
+        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 xl:w-1/2">
           <img
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:pb-12 lg:h-[770px] xl:pb-4 xl:h-[678px] lg:w-full 2xl:pb-0 2xl:h-[710px] 2xl:pb-12"
             src={banner}
@@ -164,19 +183,18 @@ export default function Example() {
       <div className="py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
+            <img className="  flex justify-center mx-auto " src={line} alt="" />
 
-            <img
-              className="  flex justify-center mx-auto "
-              src={line}
-              alt=""
-            />
-
-            <h2 className="text-5xl pt-5 text-[#3B56AA] font-extrabold text-center ">Sobre a Doty</h2>
-
+            <h2 className="text-5xl pt-5 text-[#3B56AA] font-extrabold text-center ">
+              Sobre a Doty
+            </h2>
 
             <p className="mb-[-45px] pt-5 pb-0 lg:absolutemt-4 max-w-5xl md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl text-gray-500 lg:mx-auto">
-              Somos uma plataforma que organiza os processos de adoção dos seus animais. Em um só lugar você poderá acompanhar os adotantes de cada animal, podendo aprová-los ou reprová-los nas diferentes etapas do processo.
-              Confira abaixo os principais recursos da Doty para otimizar o seu dia a dia:
+              Somos uma plataforma que organiza os processos de adoção dos seus
+              animais. Em um só lugar você poderá acompanhar os adotantes de
+              cada animal, podendo aprová-los ou reprová-los nas diferentes
+              etapas do processo. Confira abaixo os principais recursos da Doty
+              para otimizar o seu dia a dia:
             </p>
           </div>
         </div>
@@ -190,17 +208,22 @@ export default function Example() {
                 <div className="ml-20 flex items-center justify-center h-12 w-12 rounded-md bg-[#318478] text-white">
                   <feature.icon className="h-6 w-6" aria-hidden="true" />
                 </div>
-                <p className="pt-5 ml-20 text-lg leading-6 font-medium text-[gray-900]">{feature.name}</p>
+                <p className="pt-5 ml-20 text-lg leading-6 font-medium text-[gray-900]">
+                  {feature.name}
+                </p>
               </dt>
-              <dd className="mt-2 ml-20 text-base text-gray-500">{feature.description}</dd>
+              <dd className="mt-2 ml-20 text-base text-gray-500">
+                {feature.description}
+              </dd>
             </div>
           ))}
         </dl>
       </div>
 
-
       <div className="bg-[#202133] text-center">
-        <h2 className="text-[35px] text-white pb-5 md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-5xl pt-5 font-extrabold lg:mb-[15px]">Como funciona?</h2>
+        <h2 className="text-[35px] text-white pb-5 md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-5xl pt-5 font-extrabold lg:mb-[15px]">
+          Como funciona?
+        </h2>
         <img
           className="lg:mb-[15px] bg-[#202133]  flex justify-center mx-auto "
           src={line2}
@@ -208,7 +231,8 @@ export default function Example() {
         />
 
         <p className="text-white pt-5 pb-0 lg:absolutemt-4 max-w-5xl mb-[-30px] text-[20px] md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-2xl lg:mx-auto">
-          Comece a utilizar a Doty hoje mesmo e transforme o seu processo de adoção.
+          Comece a utilizar a Doty hoje mesmo e transforme o seu processo de
+          adoção.
         </p>
       </div>
 
@@ -219,18 +243,13 @@ export default function Example() {
               <div className="lg:self-center">
                 <div className="pb-5 ml-15 pb-0 mt-4 max-w-8xl text-2xl text-gray-500 lg:mx-auto mb-5 py-12 bg-[#202133]">
                   <div className="text-[15px] 2xl:ml-[-45px] mt-[-95px] md:text-[20px] lg:ml-[-25px] p-0 ml-[-12px] 2xl:max-w-8xl max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         1
                       </div>
-                      <p className="font-medium text-white">
-                        Crie sua conta
-                      </p>
+                      <p className="font-medium text-white">Crie sua conta</p>
                     </div>
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
-
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         2
                       </div>
@@ -238,11 +257,8 @@ export default function Example() {
                       <p className="font-medium text-white">
                         Cadastre seus animais
                       </p>
-
-
                     </div>
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
-
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         3
                       </div>
@@ -250,11 +266,8 @@ export default function Example() {
                       <p className="font-medium text-white">
                         Divulgue seu Doty link
                       </p>
-
-
                     </div>
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
-
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         4
                       </div>
@@ -262,11 +275,8 @@ export default function Example() {
                       <p className="font-medium text-white">
                         Avalie formulários
                       </p>
-
-
                     </div>
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
-
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         5
                       </div>
@@ -274,22 +284,15 @@ export default function Example() {
                       <p className="font-medium text-white">
                         Agende e faça entrevistas
                       </p>
-
-
                     </div>
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
-
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         6
                       </div>
 
-                      <p className="font-medium text-white">
-                        Agende a visita
-                      </p>
-
+                      <p className="font-medium text-white">Agende a visita</p>
                     </div>
                     <div className="xl:ml-[96px] flex items-center mb-5 flex ">
-
                       <div className="2xl:ml-[-75px] xl:ml-[-75px] text-white mr-4 flex items-center justify-center w-12 h-12 rounded-full border-2 ">
                         7
                       </div>
@@ -297,7 +300,6 @@ export default function Example() {
                       <p className="font-medium text-white">
                         Finalize o processo
                       </p>
-                      
                     </div>
 
                     <div className="ml-[20px] md:mt-[55px] sm:mt-8 sm:flex sm:justify-center lg:justify-start">
@@ -317,7 +319,6 @@ export default function Example() {
                         src={framebt}
                         alt="App screenshot"
                       />
-                      
                     </div>
                   </div>
                 </div>
@@ -354,27 +355,22 @@ export default function Example() {
                     <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
                   </svg>
                   <p className="md:relative text-[5px] md:text-[18px] md:mt-[-340px] md:ml-[235px] lg:text-[23px] xl:text-[32px] lg:mt-[-70px] lg:ml-[-65px] md:text-[20px] text-[18px] mt-[-0px] font-medium text-white">
-                    Amei usar a Doty! A plataforma tornou o processo de adoção muito mais fácil e rápido. Agora consigo acompanhar todos os meus processos em um lugar só.
+                    Amei usar a Doty! A plataforma tornou o processo de adoção
+                    muito mais fácil e rápido. Agora consigo acompanhar todos os
+                    meus processos em um lugar só.
                   </p>
                 </div>
                 <footer className="md:absolute lg:absolute xl:ml-[-65px] xl:mt-[25px] 2xl:mt-[40px] 2xl:ml-[-65px] lg:ml-[-65px] lg:mt-[15px] md:mt-[45px] md:ml-[235px] ml-[155px] mt-[-320px]">
                   <p className="text-base font-medium text-white">Helena</p>
-                  <p className="text-base font-medium text-indigo-100">Dona da ONG Cãozinho</p>
+                  <p className="text-base font-medium text-indigo-100">
+                    Dona da ONG Cãozinho
+                  </p>
                 </footer>
               </blockquote>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
-  )
+  );
 }
-
-
-
-
-
-
-

@@ -46,10 +46,18 @@ function Welcome() {
           <ArrowRight />
           <p>Visita e Retirada</p>
         </div>
-        {/* TODO: Redirecionar baseado na role */}
-        <Link to={`/adopter/${id}/form`} className="btn block lg:w-80 mt-10">
-          Continuar
-        </Link>
+        {authContext.loggedInUser.user?.role === "adopter" ? (
+          <Link to={`/adopter/${id}/form`} className="btn block lg:w-80 mt-10">
+            Continuar
+          </Link>
+        ) : (
+          <Link
+            to="/guardian/welcome/registerPets"
+            className="btn block lg:w-80 mt-10"
+          >
+            Continuar
+          </Link>
+        )}
       </BannerLayout.Content>
     </BannerLayout.Layout>
   );

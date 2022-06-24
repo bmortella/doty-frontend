@@ -14,7 +14,7 @@ function SignUpPage() {
   const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    console.log(authContext)
+    console.log(authContext);
     if (!authContext.adoptionForm) {
       navigate(`/guardian/${id}`);
     }
@@ -59,15 +59,19 @@ function SignUpPage() {
   async function onSubmit(data) {
     try {
       delete data.confirmPassword;
-      data.role = "adopter";
-      const response = await api.post("/signup", data);
+      const formData = {
+        ...data,
+        role: "adopter",
+        adoptionForm: { ...authContext.adoptionForm },
+      };
+      const response = await api.post("/signup", formData);
       authContext.setLoggedInUser({ ...response.data });
       localStorage.setItem(
         "loggedInUser",
         JSON.stringify({ ...response.data })
       );
       setHasSignedUp(true);
-      authContext.setAdoptionForm(null)
+      authContext.setAdoptionForm(null);
     } catch (err) {
       // Se ha response, a API retornou uma mensagem.
       if (err.response) {
@@ -243,7 +247,10 @@ function SignUpPage() {
         <p className="mb-4 mt-2 text-center">
           O seu formulário foi enviado e a sua conta foi criada.
         </p>
-        <button className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none">
+        <button
+          onClick={() => navigate("/adopter/dashboard")}
+          className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none"
+        >
           Ir para a página inicial
         </button>
       </div>

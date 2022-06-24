@@ -16,10 +16,11 @@ function LoginPage() {
   const [hasSignedUp, setHasSignedUp] = useState(false);
   const { id } = useParams();
   useEffect(() => {
-    console.log(authContext)
+    console.log(authContext);
     if (!authContext.adoptionForm) {
       navigate(`/guardian/${id}`);
     }
+    // POSSIVEL INSERÇAO DO ADOPTION FORM AQUI
   }, []);
   function handleChange(event) {
     setState({
@@ -33,6 +34,7 @@ function LoginPage() {
     try {
       const response = await api.post("/login", { ...state, role: "adopter" });
       console.log(response);
+      // console.log(authContext.adoptionForm);
       authContext.setLoggedInUser({ ...response.data });
       localStorage.setItem(
         "loggedInUser",
@@ -40,7 +42,7 @@ function LoginPage() {
       );
       setErrors({ password: "", email: "" });
       setHasSignedUp(true);
-      authContext.setAdoptionForm(null)
+      authContext.setAdoptionForm(null);
     } catch (err) {
       console.error(err.response);
       setErrors({ ...err.response.data.errors });
@@ -119,13 +121,17 @@ function LoginPage() {
       </div>
     );
   }
+  console.log("fora do try:", authContext.adoptionForm);
   return (
     <div className="flex flex-col bg-secondary-blue h-screen justify-center items-center">
       <div className="bg-white rounded-lg flex flex-col items-center justify-center max-w-md py-8 px-[22px] md:w-3/5">
         <CheckCircle size={41} className="mb-5 text-[#219653]" />
         <div className="text-[32px] font-bold text-[#219653]">Oba!</div>
         <p className="mb-4 mt-2 text-center">O seu formulário foi enviado.</p>
-        <button className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none">
+        <button
+          className="w-full text-white bg-primary focus:ring-4 focus:ring-blue-300 font-normal rounded-lg text-base px-11 py-2.5 focus:outline-none"
+          onClick={() => navigate("/adopter/dashboard")}
+        >
           Ir para a página inicial
         </button>
       </div>

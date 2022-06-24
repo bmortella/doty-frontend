@@ -85,7 +85,7 @@ function App() {
         <Route path="/adopter/:id/login" element={<LoginPage />} />
 
         <Route
-          path="adopter/dashboard"
+          path="adopter/dashboard/:id"
           element={
             <ProtectedRoute
               component={StackedLayout}

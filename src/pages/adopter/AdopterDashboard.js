@@ -86,7 +86,7 @@ function AdopterDashboard() {
                 <Disclosure.Panel className="text-[#3B56AA] font-[600]">
                   Animal escolhido:{" "}
                   <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.petId}
+                    {/* {adopterInfo?.adopter?.name}TROCAR PELO NOME DO ANIMAL */}
                   </p>
                   Se já teve animais e quantos:{" "}
                   <p className="text-gray-600 font-[400] text-sm">
@@ -122,14 +122,15 @@ function AdopterDashboard() {
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
                   <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
                     Selecione o dia e horário de sua preferência para conversar
-                    com a <p>{adopterInfo?.guardianId}</p>
+                    com @ Doador@
+                    {/* TROCAR DOADOR PELO NOME DO DOADOR */}
                     <input
                       className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                      placeholder="Inserir data no formato DD/MM/AAAA"
+                      placeholder="Formato: DD/MM/AAAA"
                     ></input>
                     <input
                       className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                      placeholder="Inserir horário no formato '00:00hrs'"
+                      placeholder="Formato: '00:00hrs'"
                     ></input>
                   </div>
                   <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
@@ -140,17 +141,31 @@ function AdopterDashboard() {
             </div>
             <div className="border-2 py-4 px-6 rounded-md my-10">
               <Disclosure>
-                <Disclosure.Button className="flex flex-col">
+                <Disclosure.Button className="flex flex-col text-[14px]">
                   Visita e Retirada
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-400 mb-4">
                     Ultima etapa da adoção
                   </p>
                 </Disclosure.Button>
-                <Disclosure.Panel className="text-gray-500">
-                  Domingo ela não vai (vai, vai)
-                  <p> Domingo ela não vai não (vai, vai, vai)</p>
-                  Olha, domingo ela não vai (vai, vai)
-                  <p>Domingo ela não vai não (vai, vai, vai)</p>
+                <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
+                  Selecione dia e horário de sua preferência para visitação do
+                  abrigo, assinatura de documentos e retirada do animal sugerido
+                  pelo adotante.
+                  <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
+                    Selecionar o dia
+                    <input
+                      className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                      placeholder="Formato: DD/MM/AAAA"
+                    ></input>
+                    Selecionar horário
+                    <input
+                      className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                      placeholder="Formato: '00:00hrs'"
+                    ></input>
+                  </div>
+                  <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
+                    Enviar Horário para Aprovação
+                  </button>
                 </Disclosure.Panel>
               </Disclosure>
             </div>

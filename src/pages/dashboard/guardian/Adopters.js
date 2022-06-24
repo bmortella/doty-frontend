@@ -24,7 +24,6 @@ function Adopters() {
         const response = await api.get(
           `/adoptionProcess/${authContext.loggedInUser.user._id}`
         );
-        console.log(response);
         setAdopters(response.data);
       } catch (err) {
         console.log(err);

@@ -34,6 +34,32 @@ function AdopterProfile() {
     getProcess();
   }, []);
 
+  function getStageClass() {
+    if (!process.stage) return " w-1/3";
+    return ` w-${process.stage + 1}/3`;
+  }
+
+  async function approveForm() {
+    try {
+      let updateProcess = {
+        _id: process._id,
+        process: process.process,
+        stage: process.stage,
+        status: process.status,
+      };
+      updateProcess.stage = 1;
+      updateProcess.process["0"].status = "APPROVED";
+      const response = await api.put(`/adoptionProcess`, updateProcess);
+      setProcess({
+        ...process,
+        process: updateProcess.process,
+        stage: updateProcess.stage,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <div>
@@ -62,7 +88,7 @@ function AdopterProfile() {
           <p className="text-neutral text-sm mb-2">Seu processo:</p>
           <div>
             <div class="overflow-hidden bg-gray-400 rounded-full">
-              <div class="w-1/3 h-4 bg-[#219653] rounded-full" />
+              <div class={"h-4 bg-[#219653] rounded-full" + getStageClass()} />
             </div>
             <ol class="grid grid-cols-3 mt-4 text-sm font-medium text-gray-500">
               <li class="flex items-center justify-start text-blue-600">
@@ -122,16 +148,28 @@ function AdopterProfile() {
                   </span>
                   {process.process?.["0"].petAccess}
                 </p>
-                <div className="flex">
-                  <button className="btn w-28 bg-[#219653] inline-flex justify-center items-center">
-                    <ThumbsUp className="mr-2" size={20} />
-                    Aprovar
-                  </button>
-                  <button className="btn w-28 bg-error inline-flex justify-center items-center">
-                    <ThumbsDown className="mr-2" size={20} />
-                    Reprovar
-                  </button>
-                </div>
+                {process.process?.["0"].status === "PENDING" && (
+                  <div className="flex">
+                    <button
+                      className="btn w-28 bg-[#219653] inline-flex justify-center items-center"
+                      onClick={() => approveForm()}
+                    >
+                      <ThumbsUp className="mr-2" size={20} />
+                      Aprovar
+                    </button>
+                    <button className="btn w-28 bg-error inline-flex justify-center items-center">
+                      <ThumbsDown className="mr-2" size={20} />
+                      Reprovar
+                    </button>
+                  </div>
+                )}
+                {process.process?.["0"].status === "APPROVED" && (
+                  <div className="flex">
+                    <button className="btn w-48 bg-error">
+                      Desfazer Aprovação
+                    </button>
+                  </div>
+                )}
               </Disclosure.Panel>
             </Disclosure>
           </div>

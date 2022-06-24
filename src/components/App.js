@@ -16,6 +16,7 @@ import FormForAdoption from "../pages/adopter/FormForAdoption";
 import SignUpPage from "../pages/SignUpPage";
 import GuardianHome from "../pages/dashboard/guardian/GuardianHome";
 import Adopters from "../pages/dashboard/guardian/Adopters";
+import AdopterDashboard from "../pages/adopter/AdopterDashboard";
 
 import { AuthContextComponent } from "../contexts/authContext";
 import LoginPage from "../pages/LoginPage";
@@ -24,8 +25,7 @@ function App() {
   return (
     <AuthContextComponent>
       <Routes>
-        {/* COMMON ROUTES */}
-        <Route path="/" element={<ProtectedRoute component={Home} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* COMMON PROTECTED */}
@@ -71,12 +71,33 @@ function App() {
         </Route>
 
         {/* Fluxo do adotante */}
+
         <Route path="/guardian/:id" element={<GuardianPage />} />
+
         <Route path="/adopter/:id/welcome" element={<Welcome />} />
+
         <Route path="/adopter/:id/terms" element={<TermsOfUse />} />
+
         <Route path="/adopter/:id/form" element={<FormForAdoption />} />
+
         <Route path="/adopter/:id/signup" element={<SignUpPage />} />
+
         <Route path="/adopter/:id/login" element={<LoginPage />} />
+
+        <Route
+          path="adopter/dashboard"
+          element={
+            <ProtectedRoute
+              component={StackedLayout}
+              role="adopter"
+              props={{
+                navigation: [],
+              }}
+            ></ProtectedRoute>
+          }
+        >
+          <Route path="" element={<AdopterDashboard/>} />
+        </Route>
       </Routes>
     </AuthContextComponent>
   );

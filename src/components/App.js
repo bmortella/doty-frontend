@@ -14,6 +14,8 @@ import Pets from "../pages/dashboard/guardian/Pets";
 import TermsOfUse from "../pages/adopter/TermsOfUse";
 import FormForAdoption from "../pages/adopter/FormForAdoption";
 import SignUpPage from "../pages/SignUpPage";
+import GuardianHome from "../pages/dashboard/guardian/GuardianHome";
+import Adopters from "../pages/dashboard/guardian/Adopters";
 import AdopterDashboard from "../pages/adopter/AdopterDashboard";
 
 import { AuthContextComponent } from "../contexts/authContext";
@@ -62,10 +64,10 @@ function App() {
             />
           }
         >
-          <Route path="" element={<p>Home</p>} />
+          <Route path="" element={<GuardianHome />} />
           <Route path="profile" element={<Profile />} />
           <Route path="pets" element={<Pets />} />
-          <Route path="adopters" element={<p>Ola Mundo!</p>} />
+          <Route path="adopters" element={<Adopters />} />
         </Route>
 
         {/* Fluxo do adotante */}

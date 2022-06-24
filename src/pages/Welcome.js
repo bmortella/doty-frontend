@@ -11,7 +11,7 @@ import BannerLayout from "../components/BannerLayout";
 
 function Welcome() {
   const authContext = useContext(AuthContext);
-  const {id} = useParams();
+  const { id } = useParams();
 
   return (
     <BannerLayout.Layout>
@@ -46,6 +46,7 @@ function Welcome() {
           <ArrowRight />
           <p>Visita e Retirada</p>
         </div>
+        {/* TODO: Redirecionar baseado na role */}
         <Link to={`/adopter/${id}/form`} className="btn block lg:w-80 mt-10">
           Continuar
         </Link>

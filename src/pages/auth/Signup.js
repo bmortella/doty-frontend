@@ -57,6 +57,7 @@ function Signup() {
     try {
       delete data.confirmPassword;
       data.role = selectedIndex === 0 ? "guardian" : "adopter";
+      data.adoptionForm = {};
 
       const response = await api.post("/signup", data);
       authContext.setLoggedInUser({ ...response.data });
@@ -80,8 +81,6 @@ function Signup() {
           );
         }
       }
-      // TODO: mostrar popup de erro
-      //console.error(err);
     }
   }
 

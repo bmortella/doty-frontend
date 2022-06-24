@@ -1,5 +1,5 @@
 import { Fragment, useContext, useState } from "react";
-import { NavLink, Outlet, useOutletContext } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 import { AuthContext } from "../contexts/authContext";
 
@@ -9,12 +9,6 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link as LinkIcon } from "react-feather";
 
 import "../assets/styles/background.css";
-
-// const navigation = [
-//   { name: "Página Inicial", href: "", end: true },
-//   { name: "Animais Cadastrados", href: "pets", end: false },
-//   { name: "Adotantes", href: "adopters", end: false },
-// ];
 
 const userNavigation = [
   { name: "Meu Perfil", href: "dashboard/profile" },
@@ -237,15 +231,15 @@ export default function StackedLayout(props) {
 
         <header className="bg-primary pb-52">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between">
+            <div className="flex justify-between mt-8">
               <h1 className="text-3xl font-bold text-white">{title}</h1>
-              <button
+              {/* <button
                 className="btn font-normal text-sm hidden md:w-80 md:inline-flex justify-center items-center bg-secondary-blue"
                 onClick={copyLink}
               >
                 <LinkIcon className="mr-2" size={20} />
                 Copiar link do processo de adoção
-              </button>
+              </button> */}
             </div>
           </div>
         </header>

@@ -3,6 +3,7 @@ import { useOutletContext, useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/authContext";
 import { Disclosure } from "@headlessui/react";
 import api from "../../apis/api";
+import { Calendar, Clock } from "react-feather";
 
 const steps = [
   {
@@ -20,7 +21,6 @@ function AdopterDashboard() {
   const { setTitle } = useOutletContext();
   const authContext = useContext(AuthContext);
   const [progressoBarrinha, setProgressoBarrinha] = useState(0);
-  const { id } = useParams();
   const [adopterInfo, setAdopterInfo] = useState({});
 
   useEffect(() => {
@@ -48,6 +48,11 @@ function AdopterDashboard() {
     setProgressoBarrinha(progressoBarra.length);
   }, []);
 
+  async function onClick(event) {
+    try {
+      const response = await api.put(`/adoptionProcess/process/${authContext.loggedInUser.user._id}`);
+    } catch (err) {}
+  }
   return (
     <div>
       <div className="flex flex-col">
@@ -86,7 +91,7 @@ function AdopterDashboard() {
                 <Disclosure.Panel className="text-[#3B56AA] font-[600]">
                   Animal escolhido:{" "}
                   <p className="text-gray-600 font-[400] text-sm">
-                    {/* {adopterInfo?.adopter?.name}TROCAR PELO NOME DO ANIMAL */}
+                    {adopterInfo?.pet?.name}
                   </p>
                   Se já teve animais e quantos:{" "}
                   <p className="text-gray-600 font-[400] text-sm">
@@ -120,22 +125,40 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
-                  <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
+                  <div className="hidden">
                     Selecione o dia e horário de sua preferência para conversar
                     com @ Doador@
-                    {/* TROCAR DOADOR PELO NOME DO DOADOR */}
-                    <input
-                      className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                      placeholder="Formato: DD/MM/AAAA"
-                    ></input>
-                    <input
-                      className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                      placeholder="Formato: '00:00hrs'"
-                    ></input>
+                    <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
+                      {/* TROCAR DOADOR PELO NOME DO DOADOR */}
+                      Selecionar o dia
+                      <input
+                        className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                        placeholder="Formato: DD/MM/AAAA"
+                      ></input>
+                      Selecionar horário
+                      <input
+                        className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                        placeholder="Formato: '00:00hrs'"
+                      ></input>
+                    </div>
+                    <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
+                      Enviar Horário para Aprovação
+                    </button>
                   </div>
-                  <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
-                    Enviar Horário para Aprovação
-                  </button>
+                  <div className="block">
+                    O dia e horário de sua preferência para conversar com @
+                    Doador@ foi selecionado.
+                    <div>
+                      {" "}
+                      <Calendar size={24} />
+                      INSERIR DATA AQUI
+                    </div>
+                    <div>
+                      {" "}
+                      <Clock size={24} />
+                      INSERIR HORA AQUI
+                    </div>
+                  </div>
                 </Disclosure.Panel>
               </Disclosure>
             </div>
@@ -148,24 +171,38 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
-                  Selecione dia e horário de sua preferência para visitação do
-                  abrigo, assinatura de documentos e retirada do animal sugerido
-                  pelo adotante.
-                  <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
-                    Selecionar o dia
-                    <input
-                      className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                      placeholder="Formato: DD/MM/AAAA"
-                    ></input>
-                    Selecionar horário
-                    <input
-                      className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                      placeholder="Formato: '00:00hrs'"
-                    ></input>
+                  <div className="hidden">
+                    Selecione dia e horário de sua preferência para visitação do
+                    abrigo, assinatura de documentos e retirada do animal
+                    sugerido.
+                    <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
+                      Selecionar o dia
+                      <input
+                        className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                        placeholder="Formato: DD/MM/AAAA"
+                      ></input>
+                      Selecionar horário
+                      <input
+                        className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                        placeholder="Formato: '00:00hrs'"
+                      ></input>
+                    </div>
+                    <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
+                      Enviar Horário para Aprovação
+                    </button>
                   </div>
-                  <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
-                    Enviar Horário para Aprovação
-                  </button>
+                  <div className="block">
+                    O dia e horário de sua preferência para visitação do abrigo,
+                    assinatura de documentos e retirada do animal foi
+                    selecionado.
+                    <div>
+                      <Calendar size={24} /> Inserir DATA AQUI
+                    </div>
+                    <div>
+                      <Clock size={24} />
+                      Inserir HORARIO AQUI
+                    </div>
+                  </div>
                 </Disclosure.Panel>
               </Disclosure>
             </div>

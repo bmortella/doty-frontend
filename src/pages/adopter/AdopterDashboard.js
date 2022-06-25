@@ -73,11 +73,11 @@ function AdopterDashboard() {
   return (
     <div>
       <div className="flex flex-col">
-        <div>Seu processo:</div>
         <div>
+          <p className="text-neutral text-sm mb-2">Seu processo:</p>
           <div>
             <div class="overflow-hidden bg-gray-400 rounded-full">
-              <div class={`w-/3 h-2 bg-[#219653] rounded-full`} />
+              <div class={`w-/3 h-4 bg-[#219653] rounded-full`} />
             </div>
             <ol class="grid grid-cols-3 mt-4 text-sm font-medium text-gray-500">
               <li class="flex items-center justify-start text-blue-600">

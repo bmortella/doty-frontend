@@ -22,6 +22,8 @@ function AdopterDashboard() {
   const authContext = useContext(AuthContext);
   const [progressoBarrinha, setProgressoBarrinha] = useState(0);
   const [adopterInfo, setAdopterInfo] = useState({});
+  const [interviewDate, setInterviewDate] = useState("");
+  const [interviewTime, setInterviewTime] = useState("");
 
   useEffect(() => {
     async function getAdopter() {
@@ -48,12 +50,21 @@ function AdopterDashboard() {
     setProgressoBarrinha(progressoBarra.length);
   }, []);
 
-  async function onClick(event) {
+  async function submitInterviewDate() {
     try {
-      const response = await api.put(
-        `/adoptionProcess/process/${authContext.loggedInUser.user._id}`
-      );
-    } catch (err) {}
+      let updateData = {
+        _id: adopterInfo._id,
+        stage: 1,
+        status: "PENDING",
+        process: adopterInfo.process,
+      };
+      updateData.process["1"].date = interviewDate;
+      updateData.process["1"].time = interviewTime;
+      const response = await api.put("/adoptionProcess/", updateData);
+      setAdopterInfo({ ...adopterInfo, process: response.data.process });
+    } catch (err) {
+      console.error(err);
+    }
   }
   return (
     <div>
@@ -137,14 +148,19 @@ function AdopterDashboard() {
                         className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
                         placeholder="Formato: DD/MM/AAAA"
                         type="date"
+                        onChange={(e) => setInterviewDate(e.target.value)}
                       ></input>
                       Selecionar horário
                       <input
                         className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
                         placeholder="Formato: '00:00hrs'"
+                        onChange={(e) => setInterviewTime(e.target.value)}
                       ></input>
                     </div>
-                    <button className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2">
+                    <button
+                      className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2"
+                      onClick={() => submitInterviewDate()}
+                    >
                       Enviar Horário para Aprovação
                     </button>
                   </div>

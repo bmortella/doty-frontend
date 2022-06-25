@@ -98,6 +98,12 @@ function AdopterProfile() {
       updateProcess.stage = 2;
       updateProcess.process["1"].awaiting = null;
       updateProcess.process["1"].status = "APPROVED";
+      updateProcess.process["2"] = {
+        date: "",
+        time: "",
+        awaiting: "ADOPTER",
+        status: "PENDING",
+      };
       await api.put(`/adoptionProcess`, updateProcess);
       setProcess({
         ...process,
@@ -310,29 +316,82 @@ function AdopterProfile() {
             <Disclosure>
               <Disclosure.Button className="flex flex-col text-[14px] mb-4 font-[400]">
                 Visita e Retirada
-                <p className="text-xs text-gray-400">Última etapa de adoção</p>
+                <p className="text-xs text-gray-400">Última etapa da adoção</p>
               </Disclosure.Button>
               <Disclosure.Panel>
                 <div className="bg-[#F4F3FF] p-4 rounded-md flex flex-col">
                   <p className="text-neutral text-xs">
-                    Este é o dia e horário sugerido pelo adotante.{" "}
+                    Este é o dia e horário para visita, assinatura de documentos
+                    e retirada do animal sugerido pelo adotante.
                   </p>
+                  {process.process?.["2"]?.awaiting === "INTERVIEW" && (
+                    <div className="text-[14px] mt-6">
+                      <p>
+                        Este é o dia e horário da visita, assinatura de
+                        documentos e retirada do animal da{" "}
+                        {process.adopter.name}
+                      </p>
+                      <p>
+                        <b>
+                          Entre em contato via WhatsApp para combinar os
+                          detalhes, se necessário
+                        </b>
+                      </p>
+                    </div>
+                  )}
                   <div className="inline-flex items-center mt-6">
                     <Calendar />
                     <p className="text-primary ml-2 text-sm">
-                      Segunda-feira, dia 25 de abril de 2022{" "}
+                      {process.process?.["2"]?.date}{" "}
                     </p>
                   </div>
                   <div className="inline-flex items-center mt-7">
                     <Clock />
-                    <p className="text-primary ml-2 text-sm">15:00</p>
+                    <p className="text-primary ml-2 text-sm">
+                      {process.process?.["2"]?.time}
+                    </p>
                   </div>
-                  <div className="flex mt-6">
-                    <button className="btn w-44 mb-0">Aprovar Horário</button>
-                    <button className="btn btn-outline bg-[#F4F3FF] w-52 mb-0">
-                      Propor novo horário
+                  {process.process?.["2"]?.awaiting === "GUARDIAN" && (
+                    <div className="flex mt-6">
+                      <button
+                        className="btn w-44 mb-0"
+                        onClick={() => approveInterviewDate()}
+                      >
+                        Aprovar Horário
+                      </button>
+                      <button className="btn btn-outline bg-transparent w-52 mb-0">
+                        Propor novo horário
+                      </button>
+                    </div>
+                  )}
+                  {process.process?.["2"]?.awaiting === "INTERVIEW" && (
+                    <>
+                      <div className="flex mt-6">
+                        <button
+                          className="btn w-52 bg-[#219653] inline-flex justify-center items-center"
+                          onClick={() => approveInterview()}
+                        >
+                          <ThumbsUp className="mr-2" size={20} />
+                          Animal Adotado
+                        </button>
+                        <button className="btn w-52 bg-error inline-flex justify-center items-center">
+                          <ThumbsDown className="mr-2" size={20} />
+                          Visita Não Ocorreu
+                        </button>
+                      </div>
+                      <div className="inline-flex mt-6 items-center text-[14px]">
+                        <p>Não deu certo o horário da visita e retirada?</p>
+                        <button className="btn btn-outline bg-transparent w-40 text-[14px] mb-0 py-1 ml-2">
+                          Propor novo horário
+                        </button>
+                      </div>
+                    </>
+                  )}
+                  {process.process?.["2"]?.status === "APPROVED" && (
+                    <button className="btn mb-0 bg-error mt-6 w-52">
+                      Desfazer Aprovação
                     </button>
-                  </div>
+                  )}
                 </div>
               </Disclosure.Panel>
             </Disclosure>

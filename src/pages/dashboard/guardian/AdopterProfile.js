@@ -10,6 +10,8 @@ import {
   MapPin,
   ThumbsUp,
   ThumbsDown,
+  Calendar,
+  Clock,
 } from "react-feather";
 
 import { Disclosure } from "@headlessui/react";
@@ -35,8 +37,8 @@ function AdopterProfile() {
   }, []);
 
   function getStageClass() {
-    if (!process.stage) return " w-1/3";
-    return ` w-${process.stage + 1}/3`;
+    if (!process.stage) return "w-1/3";
+    return `w-${process.stage + 1}/3`;
   }
 
   async function approveForm() {
@@ -87,18 +89,20 @@ function AdopterProfile() {
         <div className="mt-7">
           <p className="text-neutral text-sm mb-2">Seu processo:</p>
           <div>
-            <div class="overflow-hidden bg-gray-400 rounded-full">
-              <div class={"h-4 bg-[#219653] rounded-full" + getStageClass()} />
+            <div className="overflow-hidden bg-gray-400 rounded-full">
+              <div
+                className={"h-4 bg-[#219653] rounded-full " + getStageClass()}
+              />
             </div>
-            <ol class="grid grid-cols-3 mt-4 text-sm font-medium text-gray-500">
-              <li class="flex items-center justify-start text-blue-600">
+            <ol className="grid grid-cols-3 mt-4 text-sm font-medium text-gray-500">
+              <li className="flex items-center justify-start text-blue-600">
                 <path stroke-linecap="round" stroke-linejoin="round" />
               </li>
-              <li class="flex items-center justify-center text-blue-600">
+              <li className="flex items-center justify-center text-blue-600">
                 <path stroke-linecap="round" stroke-linejoin="round" />
                 <path stroke-linecap="round" stroke-linejoin="round" />
               </li>
-              <li class="flex items-center justify-end">
+              <li className="flex items-center justify-end">
                 <path stroke-linecap="round" stroke-linejoin="round" />
               </li>
             </ol>
@@ -170,6 +174,68 @@ function AdopterProfile() {
                     </button>
                   </div>
                 )}
+              </Disclosure.Panel>
+            </Disclosure>
+          </div>
+          <div className="border-2 py-4 px-6 rounded-md mt-5">
+            <Disclosure>
+              <Disclosure.Button className="flex flex-col text-[14px] mb-4 font-[400]">
+                Entrevista
+                <p className="text-xs text-gray-400">Segunda etapa de adoção</p>
+              </Disclosure.Button>
+              <Disclosure.Panel>
+                <div className="bg-[#F4F3FF] p-4 rounded-md flex flex-col">
+                  <p className="text-neutral text-xs">
+                    Este é o dia e horário sugerido pelo adotante.
+                  </p>
+                  <div className="inline-flex items-center mt-6">
+                    <Calendar />
+                    <p className="text-primary ml-2 text-sm">
+                      Segunda-feira, dia 25 de abril de 2022{" "}
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center mt-7">
+                    <Clock />
+                    <p className="text-primary ml-2 text-sm">15:00</p>
+                  </div>
+                  <div className="flex mt-6">
+                    <button className="btn w-44 mb-0">Aprovar Horário</button>
+                    <button className="btn btn-outline bg-[#F4F3FF] w-52 mb-0">
+                      Propor novo horário
+                    </button>
+                  </div>
+                </div>
+              </Disclosure.Panel>
+            </Disclosure>
+          </div>
+          <div className="border-2 py-4 px-6 rounded-md mt-5">
+            <Disclosure>
+              <Disclosure.Button className="flex flex-col text-[14px] mb-4 font-[400]">
+                Visita e Retirada
+                <p className="text-xs text-gray-400">Última etapa de adoção</p>
+              </Disclosure.Button>
+              <Disclosure.Panel>
+                <div className="bg-[#F4F3FF] p-4 rounded-md flex flex-col">
+                  <p className="text-neutral text-xs">
+                    Este é o dia e horário sugerido pelo adotante.
+                  </p>
+                  <div className="inline-flex items-center mt-6">
+                    <Calendar />
+                    <p className="text-primary ml-2 text-sm">
+                      Segunda-feira, dia 25 de abril de 2022{" "}
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center mt-7">
+                    <Clock />
+                    <p className="text-primary ml-2 text-sm">15:00</p>
+                  </div>
+                  <div className="flex mt-6">
+                    <button className="btn w-44 mb-0">Aprovar Horário</button>
+                    <button className="btn btn-outline bg-[#F4F3FF] w-52 mb-0">
+                      Propor novo horário
+                    </button>
+                  </div>
+                </div>
               </Disclosure.Panel>
             </Disclosure>
           </div>

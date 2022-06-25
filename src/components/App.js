@@ -17,6 +17,7 @@ import SignUpPage from "../pages/SignUpPage";
 import GuardianHome from "../pages/dashboard/guardian/GuardianHome";
 import Adopters from "../pages/dashboard/guardian/Adopters";
 import AdopterDashboard from "../pages/adopter/AdopterDashboard";
+import AdopterProfile from "../pages/dashboard/guardian/AdopterProfile";
 
 import { AuthContextComponent } from "../contexts/authContext";
 import LoginPage from "../pages/LoginPage";
@@ -68,6 +69,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="pets" element={<Pets />} />
           <Route path="adopters" element={<Adopters />} />
+          <Route path="adopters/:id" element={<AdopterProfile />} />
         </Route>
 
         {/* Fluxo do adotante */}
@@ -96,7 +98,7 @@ function App() {
             ></ProtectedRoute>
           }
         >
-          <Route path="" element={<AdopterDashboard/>} />
+          <Route path="" element={<AdopterDashboard />} />
         </Route>
       </Routes>
     </AuthContextComponent>

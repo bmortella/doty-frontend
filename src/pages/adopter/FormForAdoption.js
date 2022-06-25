@@ -140,11 +140,11 @@ function FormForAdoption() {
   }
 
   function next(data) {
-    setFormData({ ...formData, ...data });
     if (index + 1 >= forms.length) {
-      authContext.setAdoptionForm(formData);
-      
+      authContext.setAdoptionForm({ ...formData, ...data });
       navigate(`/adopter/${id}/login`);
+    } else {
+      setFormData({ ...formData, ...data });
     }
     setIndex(index + 1);
   }

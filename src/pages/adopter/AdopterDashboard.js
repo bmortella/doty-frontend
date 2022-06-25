@@ -67,6 +67,7 @@ function AdopterDashboard() {
       console.error(err);
     }
   }
+
   return (
     <div>
       <div className="flex flex-col">
@@ -139,7 +140,7 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
-                  <div className="block">
+                  <div className="hidden">
                     Selecione o dia e horário de sua preferência para conversar
                     com @ Doador@
                     <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
@@ -165,18 +166,18 @@ function AdopterDashboard() {
                       Enviar Horário para Aprovação
                     </button>
                   </div>
-                  <div className="hidden">
+                  <div className="block">
                     O dia e horário de sua preferência para conversar com @
                     Doador@ foi selecionado.
-                    <div>
+                    <div className="my-1 flex flex-row font-[600]">
                       {" "}
-                      <Calendar size={24} />
-                      INSERIR DATA AQUI
+                      <Calendar size={24} className="mr-2" />
+                      {adopterInfo?.process?.["1"].date}
                     </div>
-                    <div>
+                    <div className="my-1 flex flex-row font-[600]">
                       {" "}
-                      <Clock size={24} />
-                      INSERIR HORA AQUI
+                      <Clock size={24} className="mr-2" />
+                      {adopterInfo?.process?.["1"].time}
                     </div>
                   </div>
                 </Disclosure.Panel>

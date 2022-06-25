@@ -50,7 +50,9 @@ function AdopterDashboard() {
 
   async function onClick(event) {
     try {
-      const response = await api.put(`/adoptionProcess/process/${authContext.loggedInUser.user._id}`);
+      const response = await api.put(
+        `/adoptionProcess/process/${authContext.loggedInUser.user._id}`
+      );
     } catch (err) {}
   }
   return (
@@ -125,7 +127,7 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
-                  <div className="hidden">
+                  <div className="block">
                     Selecione o dia e horário de sua preferência para conversar
                     com @ Doador@
                     <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
@@ -134,6 +136,7 @@ function AdopterDashboard() {
                       <input
                         className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
                         placeholder="Formato: DD/MM/AAAA"
+                        type="date"
                       ></input>
                       Selecionar horário
                       <input
@@ -145,7 +148,7 @@ function AdopterDashboard() {
                       Enviar Horário para Aprovação
                     </button>
                   </div>
-                  <div className="block">
+                  <div className="hidden">
                     O dia e horário de sua preferência para conversar com @
                     Doador@ foi selecionado.
                     <div>
@@ -171,7 +174,7 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
-                  <div className="hidden">
+                  <div className="block">
                     Selecione dia e horário de sua preferência para visitação do
                     abrigo, assinatura de documentos e retirada do animal
                     sugerido.
@@ -180,6 +183,7 @@ function AdopterDashboard() {
                       <input
                         className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
                         placeholder="Formato: DD/MM/AAAA"
+                        type="date"
                       ></input>
                       Selecionar horário
                       <input
@@ -191,7 +195,7 @@ function AdopterDashboard() {
                       Enviar Horário para Aprovação
                     </button>
                   </div>
-                  <div className="block">
+                  <div className="hidden">
                     O dia e horário de sua preferência para visitação do abrigo,
                     assinatura de documentos e retirada do animal foi
                     selecionado.

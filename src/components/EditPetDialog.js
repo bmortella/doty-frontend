@@ -179,9 +179,24 @@ function RegisterPetDialog(props) {
                       defaultValue={props.toEdit.age}
                     >
                       <option value=""></option>
+                      <option value="1 mes">1 mes</option>
+                      <option value="2 meses">2 meses</option>
                       <option value="3 meses">3 meses</option>
+                      <option value="4 meses">4 meses</option>
+                      <option value="5 meses">5 meses</option>
                       <option value="6 meses">6 meses</option>
+                      <option value="7 meses">7 meses</option>
+                      <option value="8 meses">8 meses</option>
+                      <option value="9 meses">9 meses</option>
+                      <option value="10 meses">10 meses</option>
+                      <option value="11 meses">11 meses</option>
                       <option value="1 ano">1 ano</option>
+                      <option value="2 anos">2 anos</option>
+                      <option value="3 anos">3 anos</option>
+                      <option value="4 anos">4 anos</option>
+                      <option value="5 anos">5 anos</option>
+                      <option value="6 anos">6 anos</option>
+                      <option value="7 anos">7 anos</option>
                     </select>
                     {errors.age?.message && (
                       <p className="mt-2 text-sm text-error">

@@ -60,6 +60,7 @@ function AdopterDashboard() {
       };
       updateData.process["1"].date = interviewDate;
       updateData.process["1"].time = interviewTime;
+      updateData.process["1"].awaiting = "GUARDIAN";
       const response = await api.put("/adoptionProcess/", updateData);
       setAdopterInfo({ ...adopterInfo, process: response.data.process });
     } catch (err) {

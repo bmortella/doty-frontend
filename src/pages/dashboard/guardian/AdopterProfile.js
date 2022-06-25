@@ -68,6 +68,25 @@ function AdopterProfile() {
     }
   }
 
+  async function approveInterviewDate() {
+    try {
+      let updateProcess = {
+        _id: process._id,
+        process: process.process,
+        stage: process.stage,
+        status: process.status,
+      };
+      updateProcess.process["1"].awaiting = "INTERVIEW";
+      await api.put(`/adoptionProcess`, updateProcess);
+      setProcess({
+        ...process,
+        process: updateProcess.process,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <div>
@@ -197,15 +216,22 @@ function AdopterProfile() {
                   <div className="inline-flex items-center mt-6">
                     <Calendar />
                     <p className="text-primary ml-2 text-sm">
-                      Segunda-feira, dia 25 de abril de 2022{" "}
+                      {process.process?.["1"]?.date}{" "}
                     </p>
                   </div>
                   <div className="inline-flex items-center mt-7">
                     <Clock />
-                    <p className="text-primary ml-2 text-sm">15:00</p>
+                    <p className="text-primary ml-2 text-sm">
+                      {process.process?.["1"]?.time}
+                    </p>
                   </div>
                   <div className="flex mt-6">
-                    <button className="btn w-44 mb-0">Aprovar Horário</button>
+                    <button
+                      className="btn w-44 mb-0"
+                      onClick={() => approveInterviewDate()}
+                    >
+                      Aprovar Horário
+                    </button>
                     <button className="btn btn-outline bg-[#F4F3FF] w-52 mb-0">
                       Propor novo horário
                     </button>

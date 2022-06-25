@@ -8,7 +8,7 @@ import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 import { Link as LinkIcon } from "react-feather";
 
-import "../assets/styles/background.css";
+// import "../assets/styles/background.css";
 
 const userNavigation = [
   { name: "Meu Perfil", href: "dashboard/profile" },

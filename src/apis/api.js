@@ -2,7 +2,7 @@ import axios from "axios";
 
 const apis = {
   development: process.env.REACT_APP_LOCAL_API_URL,
-  production: "A URL DO SEU SERVIDOR DEPLOYADO NO HEROKU AQUI",
+  production: process.env.REACT_APP_PROD_API_URL,
 };
 
 // Pré-configurando a URL padrão do nosso backend em uma instância do Axios

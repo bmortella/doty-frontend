@@ -296,11 +296,15 @@ function WelcomeRegisterPet() {
         </div>
 
         <div className="flex flex-col 2xl:flex-row-reverse w-full mt-8 px-4">
-          <Link to="/guardian/dashboard" replace className="btn 2xl:w-44">
+          <Link
+            to="/guardian/welcome/signupComplete"
+            replace
+            className="btn 2xl:w-44"
+          >
             Finalizar Cadastro
           </Link>
           <Link
-            to="/guardian/dashboard"
+            to="/guardian/welcome/signupComplete"
             className="btn text-primary bg-white 2xl:w-44"
           >
             Pular

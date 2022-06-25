@@ -9,6 +9,8 @@ import framebt from "../assets/img/framebt.jpg";
 import avatarft from "../assets/img/avatarft.png";
 import { HomeIcon, ClipboardIcon, UsersIcon } from "@heroicons/react/outline";
 
+import { Link } from "react-router-dom";
+
 const features = [
   {
     name: "1. Formulário",
@@ -31,8 +33,8 @@ const features = [
 ];
 
 const navigation = [
-  { name: "Sobre nós", href: "#" },
-  { name: "Como funciona", href: "#" },
+  { name: "Sobre nós", href: "#about" },
+  { name: "Como funciona", href: "#howitworks" },
 ];
 
 export default function Home() {
@@ -80,7 +82,7 @@ export default function Home() {
                       <a
                         key={item.name}
                         href={item.href}
-                        className="font-poppins font-poppins font-medium text-[#BDBDD5] hover:text-gray-900"
+                        className="font-poppins font-poppins font-medium text-[#BDBDD5]"
                       >
                         {item.name}
                       </a>
@@ -159,12 +161,12 @@ export default function Home() {
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
-                    <a
-                      href="#"
+                    <Link
+                      to="/signup"
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#3B56AA] hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                     >
                       Comece agora
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -180,7 +182,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="py-12 bg-white">
+      <div className="py-12 bg-white" id="about">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <img className="  flex justify-center mx-auto " src={line} alt="" />
@@ -220,7 +222,7 @@ export default function Home() {
         </dl>
       </div>
 
-      <div className="bg-[#202133] text-center">
+      <div className="bg-[#202133] text-center" id="howitworks">
         <h2 className="text-[35px] text-white pb-5 md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-5xl pt-5 font-extrabold lg:mb-[15px]">
           Como funciona?
         </h2>
@@ -304,12 +306,12 @@ export default function Home() {
 
                     <div className="ml-[20px] md:mt-[55px] sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                       <div className="rounded-md shadow">
-                        <a
-                          href="#"
+                        <Link
+                          to="/signup"
                           className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[#3B56AA] hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                         >
                           Comece agora
-                        </a>
+                        </Link>
                       </div>
                     </div>
 

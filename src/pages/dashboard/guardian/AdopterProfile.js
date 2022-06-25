@@ -51,6 +51,12 @@ function AdopterProfile() {
       };
       updateProcess.stage = 1;
       updateProcess.process["0"].status = "APPROVED";
+      updateProcess.process["1"] = {
+        date: "",
+        time: "",
+        awaiting: "ADOPTER",
+        status: "PENDING",
+      };
       const response = await api.put(`/adoptionProcess`, updateProcess);
       setProcess({
         ...process,

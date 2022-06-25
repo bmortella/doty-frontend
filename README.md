@@ -6,7 +6,7 @@ It was made using React.js, MongoDB and Express.
 
 Backend: https://github.com/bmortella/doty-backend
 
-https://docs.google.com/presentation/d/14DAvhOWz2T6HwG7H2F4QEpmrLBE9rdRIPF2L7yVAjFs/edit?usp=sharing
+Presentation: https://docs.google.com/presentation/d/14DAvhOWz2T6HwG7H2F4QEpmrLBE9rdRIPF2L7yVAjFs/edit?usp=sharing
 
 ## Available Scripts
 

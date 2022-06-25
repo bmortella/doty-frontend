@@ -87,6 +87,28 @@ function AdopterProfile() {
     }
   }
 
+  async function approveInterview() {
+    try {
+      let updateProcess = {
+        _id: process._id,
+        process: process.process,
+        stage: process.stage,
+        status: process.status,
+      };
+      updateProcess.stage = 2;
+      updateProcess.process["1"].awaiting = null;
+      updateProcess.process["1"].status = "APPROVED";
+      await api.put(`/adoptionProcess`, updateProcess);
+      setProcess({
+        ...process,
+        process: updateProcess.process,
+        stage: updateProcess.stage,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <div>
@@ -213,6 +235,20 @@ function AdopterProfile() {
                   <p className="text-neutral text-xs">
                     Este é o dia e horário sugerido pelo adotante.
                   </p>
+                  {process.process?.["1"]?.awaiting === "INTERVIEW" && (
+                    <div className="text-[14px] mt-6">
+                      <p>
+                        Este é o dia e horário da sua entrevista com{" "}
+                        {process.adopter.name}
+                      </p>
+                      <p>
+                        <b>
+                          Entre em contato via WhatsApp para combinar os
+                          detalhes
+                        </b>
+                      </p>
+                    </div>
+                  )}
                   <div className="inline-flex items-center mt-6">
                     <Calendar />
                     <p className="text-primary ml-2 text-sm">
@@ -225,17 +261,47 @@ function AdopterProfile() {
                       {process.process?.["1"]?.time}
                     </p>
                   </div>
-                  <div className="flex mt-6">
-                    <button
-                      className="btn w-44 mb-0"
-                      onClick={() => approveInterviewDate()}
-                    >
-                      Aprovar Horário
+                  {process.process?.["1"]?.awaiting === "GUARDIAN" && (
+                    <div className="flex mt-6">
+                      <button
+                        className="btn w-44 mb-0"
+                        onClick={() => approveInterviewDate()}
+                      >
+                        Aprovar Horário
+                      </button>
+                      <button className="btn btn-outline bg-transparent w-52 mb-0">
+                        Propor novo horário
+                      </button>
+                    </div>
+                  )}
+                  {process.process?.["1"]?.awaiting === "INTERVIEW" && (
+                    <>
+                      <div className="flex mt-6">
+                        <button
+                          className="btn w-52 bg-[#219653] inline-flex justify-center items-center"
+                          onClick={() => approveInterview()}
+                        >
+                          <ThumbsUp className="mr-2" size={20} />
+                          Aprovar Entrevista
+                        </button>
+                        <button className="btn w-52 bg-error inline-flex justify-center items-center">
+                          <ThumbsDown className="mr-2" size={20} />
+                          Reprovar Entrevista
+                        </button>
+                      </div>
+                      <div className="inline-flex mt-6 items-center text-[14px]">
+                        <p>Não deu certo o horário da entrevista?</p>
+                        <button className="btn btn-outline bg-transparent w-40 text-[14px] mb-0 py-1 ml-2">
+                          Propor novo horário
+                        </button>
+                      </div>
+                    </>
+                  )}
+                  {process.process?.["1"]?.status === "APPROVED" && (
+                    <button className="btn mb-0 bg-error mt-6 w-52">
+                      Desfazer Aprovação
                     </button>
-                    <button className="btn btn-outline bg-[#F4F3FF] w-52 mb-0">
-                      Propor novo horário
-                    </button>
-                  </div>
+                  )}
                 </div>
               </Disclosure.Panel>
             </Disclosure>
@@ -249,7 +315,7 @@ function AdopterProfile() {
               <Disclosure.Panel>
                 <div className="bg-[#F4F3FF] p-4 rounded-md flex flex-col">
                   <p className="text-neutral text-xs">
-                    Este é o dia e horário sugerido pelo adotante.
+                    Este é o dia e horário sugerido pelo adotante.{" "}
                   </p>
                   <div className="inline-flex items-center mt-6">
                     <Calendar />

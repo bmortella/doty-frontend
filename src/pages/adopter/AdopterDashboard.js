@@ -182,10 +182,11 @@ function AdopterDashboard() {
                         </button>
                       </>
                     )}
-                    {adopterInfo.process?.["1"]?.awaiting !== "ADOPTER" && (
+                    {adopterInfo.process?.["1"]?.awaiting === "GUARDIAN" && (
                       <>
                         <p className="text-neutral text-xs">
-                          Dia e horário para conversar com @ Doador@
+                          Seu dia e horário para conversar com @ Doador@.
+                          Aguardando aprovação.
                         </p>
                         <div className="inline-flex items-center mt-6">
                           <Calendar />
@@ -201,10 +202,15 @@ function AdopterDashboard() {
                         </div>
                       </>
                     )}
-                    {adopterInfo.process?.["1"]?.awaiting !== "ADOPTER" && (
+                    {adopterInfo.process?.["1"]?.awaiting === "INTERVIEW" && (
                       <>
                         <p className="text-neutral text-xs">
-                          Dia e horário para conversar com @ Doador@
+                          Este é o dia e horário da sua entrevista com @ Doador@
+                        </p>
+                        <p className="text-xs">
+                          <b>
+                            Aguarde contato via WhatsApp para mais detalhes.
+                          </b>
                         </p>
                         <div className="inline-flex items-center mt-6">
                           <Calendar />
@@ -233,46 +239,84 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="ml- font-[400]">
-                  <div>
-                    Selecione dia e horário de sua preferência para visitação do
-                    abrigo, assinatura de documentos e retirada do animal
-                    sugerido.
-                    <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
-                      Selecionar o dia
-                      <input
-                        className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                        placeholder="Formato: DD/MM/AAAA"
-                        type="date"
-                        onChange={(e) => setAdoptionDate(e.target.value)}
-                      ></input>
-                      Selecionar horário
-                      <input
-                        className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                        placeholder="Formato: '00:00hrs'"
-                        onChange={(e) => setAdoptionTime(e.target.value)}
-                      ></input>
-                    </div>
-                    <button
-                      className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2"
-                      onClick={() => submitAdoptionDate()}
-                    >
-                      Enviar Horário para Aprovação
-                    </button>
-                  </div>
-                  <div>
-                    {/* O dia e horário de sua preferência para visitação do abrigo,
-                    assinatura de documentos e retirada do animal foi
-                    selecionado. */}
-                    {/* <div className="my-1 flex flex-row font-[600]">
-                      {" "}
-                      <Calendar size={24} className="mr-2" />
-                      {adopterInfo?.process?.["2"].date}
-                    </div>
-                    <div className="my-1 flex flex-row font-[600]">
-                      {" "}
-                      <Clock size={24} className="mr-2" />
-                      {adopterInfo?.process?.["2"].time}
-                    </div> */}
+                  <div className="bg-[#F4F3FF] p-4 rounded-md flex flex-col">
+                    {adopterInfo.process?.["2"]?.awaiting === "ADOPTER" && (
+                      <>
+                        <p className="text-neutral text-xs">
+                          Selecione dia e horário de sua preferência para
+                          visitação do abrigo, assinatura de documentos e
+                          retirada do animal.
+                        </p>
+                        <div className="text-sm mt-6 flex flex-col">
+                          Selecionar o dia
+                          <input
+                            className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-5 ml-1 pl-1 rounded-md"
+                            placeholder="Formato: DD/MM/AAAA"
+                            type="date"
+                            onChange={(e) => setAdoptionDate(e.target.value)}
+                          />
+                          Selecionar horário
+                          <input
+                            className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                            placeholder="Formato: '00:00hrs'"
+                            onChange={(e) => setAdoptionTime(e.target.value)}
+                          ></input>
+                        </div>
+                        <button
+                          className="btn mb-0 mt-6 w-72"
+                          onClick={() => submitAdoptionDate()}
+                        >
+                          Enviar Horário para Aprovação
+                        </button>
+                      </>
+                    )}
+                    {adopterInfo.process?.["2"]?.awaiting === "GUARDIAN" && (
+                      <>
+                        <p className="text-neutral text-xs">
+                          Selecione dia e horário de sua preferência para
+                          visitação do abrigo, assinatura de documentos e
+                          retirada do animal.
+                        </p>
+                        <div className="inline-flex items-center mt-6">
+                          <Calendar />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["2"]?.date}{" "}
+                          </p>
+                        </div>
+                        <div className="inline-flex items-center mt-6">
+                          <Clock />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["2"]?.time}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                    {adopterInfo.process?.["2"]?.awaiting === "VISIT" && (
+                      <>
+                        <p className="text-neutral text-xs">
+                          Este é o dia e horário para visitação do abrigo,
+                          assinatura de documentos e retirada do animal sugerido
+                          pelo adotante.
+                        </p>
+                        <p className="text-xs">
+                          <b>
+                            Aguarde contato via WhatsApp para mais detalhes.
+                          </b>
+                        </p>
+                        <div className="inline-flex items-center mt-6">
+                          <Calendar />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["2"]?.date}{" "}
+                          </p>
+                        </div>
+                        <div className="inline-flex items-center mt-6">
+                          <Clock />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["2"]?.time}
+                          </p>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </Disclosure.Panel>
               </Disclosure>

@@ -115,6 +115,47 @@ function AdopterProfile() {
     }
   }
 
+  async function approveVisitDate() {
+    try {
+      let updateProcess = {
+        _id: process._id,
+        process: process.process,
+        stage: process.stage,
+        status: process.status,
+      };
+      updateProcess.process["2"].awaiting = "VISIT";
+      await api.put(`/adoptionProcess`, updateProcess);
+      setProcess({
+        ...process,
+        process: updateProcess.process,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function approveVisit() {
+    try {
+      let updateProcess = {
+        _id: process._id,
+        process: process.process,
+        stage: process.stage,
+        status: process.status,
+      };
+      updateProcess.process["2"].awaiting = null;
+      updateProcess.process["2"].status = "APPROVED";
+      updateProcess.status = "APPROVED";
+      await api.put(`/adoptionProcess`, updateProcess);
+      setProcess({
+        ...process,
+        process: updateProcess.process,
+        stage: updateProcess.stage,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <>
       <div>
@@ -324,7 +365,7 @@ function AdopterProfile() {
                     Este é o dia e horário para visita, assinatura de documentos
                     e retirada do animal sugerido pelo adotante.
                   </p>
-                  {process.process?.["2"]?.awaiting === "INTERVIEW" && (
+                  {process.process?.["2"]?.awaiting === "VISIT" && (
                     <div className="text-[14px] mt-6">
                       <p>
                         Este é o dia e horário da visita, assinatura de
@@ -355,7 +396,7 @@ function AdopterProfile() {
                     <div className="flex mt-6">
                       <button
                         className="btn w-44 mb-0"
-                        onClick={() => approveInterviewDate()}
+                        onClick={() => approveVisitDate()}
                       >
                         Aprovar Horário
                       </button>
@@ -364,12 +405,12 @@ function AdopterProfile() {
                       </button>
                     </div>
                   )}
-                  {process.process?.["2"]?.awaiting === "INTERVIEW" && (
+                  {process.process?.["2"]?.awaiting === "VISIT" && (
                     <>
                       <div className="flex mt-6">
                         <button
                           className="btn w-52 bg-[#219653] inline-flex justify-center items-center"
-                          onClick={() => approveInterview()}
+                          onClick={() => approveVisit()}
                         >
                           <ThumbsUp className="mr-2" size={20} />
                           Animal Adotado
@@ -388,9 +429,9 @@ function AdopterProfile() {
                     </>
                   )}
                   {process.process?.["2"]?.status === "APPROVED" && (
-                    <button className="btn mb-0 bg-error mt-6 w-52">
-                      Desfazer Aprovação
-                    </button>
+                    <p className="text-[#219653] text-lg mt-6">
+                      Parabéns! O processo de adoção foi finalizado.
+                    </p>
                   )}
                 </div>
               </Disclosure.Panel>

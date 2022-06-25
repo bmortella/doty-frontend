@@ -45,8 +45,8 @@ function AdopterDashboard() {
       updateData.process["1"].date = interviewDate;
       updateData.process["1"].time = interviewTime;
       updateData.process["1"].awaiting = "GUARDIAN";
-      const response = await api.put("/adoptionProcess/", updateData);
-      setAdopterInfo({ ...adopterInfo, process: response.data.process });
+      await api.put("/adoptionProcess/", updateData);
+      setAdopterInfo({ ...adopterInfo, process: updateData.process });
     } catch (err) {
       console.error(err);
     }
@@ -63,8 +63,8 @@ function AdopterDashboard() {
       updateData.process["2"].date = adoptionDate;
       updateData.process["2"].time = adoptionTime;
       updateData.process["2"].awaiting = "GUARDIAN";
-      const response = await api.put("/adoptionProcess/", updateData);
-      setAdopterInfo({ ...adopterInfo, process: response.data.process });
+      await api.put("/adoptionProcess/", updateData);
+      setAdopterInfo({ ...adopterInfo, process: updateData.process });
     } catch (err) {
       console.error(err);
     }
@@ -104,29 +104,41 @@ function AdopterDashboard() {
                   </p>
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-[#3B56AA] font-[600]">
-                  Animal escolhido:{" "}
-                  <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.pet?.name}
+                  <p className="text-gray-600 font-[400] text-sm mb-2">
+                    <span className="text-[#3B56AA] font-semibold">
+                      Animal escolhido:{" "}
+                    </span>
+                    {adopterInfo.pet?.name}
                   </p>
-                  Se já teve animais e quantos:{" "}
-                  <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.process?.["0"].everHadAPet}
+                  <p className="text-gray-600 font-[400] text-sm mb-2">
+                    <span className="text-[#3B56AA] font-semibold">
+                      Se já teve animais e quantos:{" "}
+                    </span>
+                    {adopterInfo.process?.["0"].everHadAPet}
                   </p>
-                  Ambiente onde o animal irá morar:{" "}
-                  <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.process?.["0"].houseType}
+                  <p className="text-gray-600 font-[400] text-sm mb-2">
+                    <span className="text-[#3B56AA] font-semibold">
+                      Ambiente onde o animal irá morar:{" "}
+                    </span>
+                    {adopterInfo.process?.["0"].houseType}
                   </p>
-                  Espaço do local:{" "}
-                  <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.process?.["0"].petAccess}
+                  <p className="text-gray-600 font-[400] text-sm mb-2">
+                    <span className="text-[#3B56AA] font-semibold">
+                      Espaço do local:{" "}
+                    </span>
+                    {adopterInfo.process?.["0"].petAccess}
                   </p>
-                  Horas que passa em casa:{" "}
-                  <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.process?.["0"].timeSpentAtHome}
+                  <p className="text-gray-600 font-[400] text-sm mb-2">
+                    <span className="text-[#3B56AA] font-semibold">
+                      Horas que passa em casa:{" "}
+                    </span>
+                    {adopterInfo.process?.["0"].timeSpentAtHome}
                   </p>
-                  Acesso do animal no local:{" "}
-                  <p className="text-gray-600 font-[400] text-sm">
-                    {adopterInfo?.process?.["0"].petAccess}
+                  <p className="text-gray-600 font-[400] text-sm mb-6">
+                    <span className="text-[#3B56AA] font-semibold">
+                      Acesso do animal no local:{" "}
+                    </span>
+                    {adopterInfo.process?.["0"].petAccess}
                   </p>
                 </Disclosure.Panel>
               </Disclosure>
@@ -139,50 +151,76 @@ function AdopterDashboard() {
                     Segunda etapa da adoção
                   </p>
                 </Disclosure.Button>
-                <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
-                  {adopterInfo.process?.["1"]?.status === "PENDING" && (
-                    <div>
-                      Selecione o dia e horário de sua preferência para
-                      conversar com @ Doador@
-                      <div className="border-2 rounded-md text-sm mt-2 flex flex-col">
-                        Selecionar o dia
-                        <input
-                          className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                          placeholder="Formato: DD/MM/AAAA"
-                          type="date"
-                          onChange={(e) => setInterviewDate(e.target.value)}
-                        ></input>
-                        Selecionar horário
-                        <input
-                          className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
-                          placeholder="Formato: '00:00hrs'"
-                          onChange={(e) => setInterviewTime(e.target.value)}
-                        ></input>
-                      </div>
-                      <button
-                        className="bg-gray-800 text-white rounded-md mt-2 px-4 py-2"
-                        onClick={() => submitInterviewDate()}
-                      >
-                        Enviar Horário para Aprovação
-                      </button>
-                    </div>
-                  )}
-                  {adopterInfo.process?.["1"].status === "APPROVED" && (
-                    <div>
-                      O dia e horário de sua preferência para conversar com @
-                      Doador@ foi selecionado.
-                      <div className="my-1 flex flex-row font-[600]">
-                        {" "}
-                        <Calendar size={24} className="mr-2" />
-                        {adopterInfo?.process?.["1"].date}
-                      </div>
-                      <div className="my-1 flex flex-row font-[600]">
-                        {" "}
-                        <Clock size={24} className="mr-2" />
-                        {adopterInfo?.process?.["1"].time}
-                      </div>
-                    </div>
-                  )}
+                <Disclosure.Panel className="ml-2 font-[400]">
+                  <div className="bg-[#F4F3FF] p-4 rounded-md flex flex-col">
+                    {adopterInfo.process?.["1"]?.awaiting === "ADOPTER" && (
+                      <>
+                        <p className="text-neutral text-xs">
+                          Selecione o dia e horário de sua preferência para
+                          conversar com @ Doador@
+                        </p>
+                        <div className="text-sm mt-6 flex flex-col">
+                          Selecionar o dia
+                          <input
+                            className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-5 ml-1 pl-1 rounded-md"
+                            placeholder="Formato: DD/MM/AAAA"
+                            type="date"
+                            onChange={(e) => setInterviewDate(e.target.value)}
+                          />
+                          Selecionar horário
+                          <input
+                            className="border-2 w-11/12 lg:w-8/12 xl:w-6/12 mb-1 ml-1 pl-1 rounded-md"
+                            placeholder="Formato: '00:00hrs'"
+                            onChange={(e) => setInterviewTime(e.target.value)}
+                          ></input>
+                        </div>
+                        <button
+                          className="btn mb-0 mt-6 w-72"
+                          onClick={() => submitInterviewDate()}
+                        >
+                          Enviar Horário para Aprovação
+                        </button>
+                      </>
+                    )}
+                    {adopterInfo.process?.["1"]?.awaiting !== "ADOPTER" && (
+                      <>
+                        <p className="text-neutral text-xs">
+                          Dia e horário para conversar com @ Doador@
+                        </p>
+                        <div className="inline-flex items-center mt-6">
+                          <Calendar />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["1"]?.date}{" "}
+                          </p>
+                        </div>
+                        <div className="inline-flex items-center mt-6">
+                          <Clock />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["1"]?.time}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                    {adopterInfo.process?.["1"]?.awaiting !== "ADOPTER" && (
+                      <>
+                        <p className="text-neutral text-xs">
+                          Dia e horário para conversar com @ Doador@
+                        </p>
+                        <div className="inline-flex items-center mt-6">
+                          <Calendar />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["1"]?.date}{" "}
+                          </p>
+                        </div>
+                        <div className="inline-flex items-center mt-6">
+                          <Clock />
+                          <p className="text-primary ml-2 text-sm">
+                            {adopterInfo.process?.["1"]?.time}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </Disclosure.Panel>
               </Disclosure>
             </div>
@@ -194,7 +232,7 @@ function AdopterDashboard() {
                     Ultima etapa da adoção
                   </p>
                 </Disclosure.Button>
-                <Disclosure.Panel className="ml-2 text-gray-400 font-[400]">
+                <Disclosure.Panel className="ml- font-[400]">
                   <div>
                     Selecione dia e horário de sua preferência para visitação do
                     abrigo, assinatura de documentos e retirada do animal

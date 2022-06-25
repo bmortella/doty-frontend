@@ -260,16 +260,19 @@ function AdopterDashboard() {
                     </button>
                   </div>
                   <div>
-                    O dia e horário de sua preferência para visitação do abrigo,
+                    {/* O dia e horário de sua preferência para visitação do abrigo,
                     assinatura de documentos e retirada do animal foi
-                    selecionado.
-                    <div>
-                      <Calendar size={24} /> Inserir DATA AQUI
+                    selecionado. */}
+                    {/* <div className="my-1 flex flex-row font-[600]">
+                      {" "}
+                      <Calendar size={24} className="mr-2" />
+                      {adopterInfo?.process?.["2"].date}
                     </div>
-                    <div>
-                      <Clock size={24} />
-                      Inserir HORARIO AQUI
-                    </div>
+                    <div className="my-1 flex flex-row font-[600]">
+                      {" "}
+                      <Clock size={24} className="mr-2" />
+                      {adopterInfo?.process?.["2"].time}
+                    </div> */}
                   </div>
                 </Disclosure.Panel>
               </Disclosure>
